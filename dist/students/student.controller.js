@@ -1,16 +1,8 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
-
-var _axios = require('axios');
-
-var _axios2 = _interopRequireDefault(_axios);
-
-var _lodash = require('lodash');
-
-var _lodash2 = _interopRequireDefault(_lodash);
 
 var _student = require('./student.service');
 
@@ -23,59 +15,61 @@ var _student4 = _interopRequireDefault(_student3);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var studentController = function studentController() {
-    var getAllStudents = function getAllStudents(req, res) {
-        var query = parseInt(req.query['q']) || undefined;
-        try {
-            if (query) {
-                _student2.default.getStudent(query, function (err, data) {
-                    if (err) {
-                        res.send({
-                            success: false,
-                            results: "Unable to get data" + err
-                        });
-                        return;
-                    }
-
-                    var student = new _student4.default(data);
-
-                    res.send({
-                        success: true,
-                        results: student
-                    });
-                });
-            } else {
-                _student2.default.getStudentList(function (err, data) {
-                    if (err) {
-                        res.send({
-                            success: false,
-                            results: "Unable to get data" + err
-                        });
-                        return;
-                    }
-
-                    var students = [];
-                    data.forEach(function (s) {
-                        var student = new _student4.default(s);
-                        students.push(student);
-                    }, undefined);
-
-                    res.send({
-                        success: true,
-                        results: students
-                    });
-                });
-            }
-        } catch (error) {
+  var getAllStudents = function getAllStudents(req, res) {
+    var query = parseInt(req.query['q']) || undefined;
+    try {
+      if (query) {
+        _student2.default.getStudent(query, function (err, data) {
+          if (err) {
             res.send({
-                success: false,
-                message: "Unable to get data " + error
+              success: false,
+              results: 'Unable to get data' + err
             });
-        }
-    };
 
-    return {
-        getAllStudents: getAllStudents
-    };
+            return;
+          }
+
+          var student = new _student4.default(data);
+
+          res.send({
+            success: true,
+            results: student
+          });
+        });
+      } else {
+        _student2.default.getStudentList(function (err, data) {
+          if (err) {
+            res.send({
+              success: false,
+              results: 'Unable to get data' + err
+            });
+
+            return;
+          }
+
+          var students = [];
+          data.forEach(function (s) {
+            var student = new _student4.default(s);
+            students.push(student);
+          }, undefined);
+
+          res.send({
+            success: true,
+            results: students
+          });
+        });
+      }
+    } catch (error) {
+      res.send({
+        success: false,
+        message: 'Unable to get data ' + error
+      });
+    }
+  };
+
+  return {
+    getAllStudents: getAllStudents
+  };
 };
 
 exports.default = studentController;

@@ -2,7 +2,10 @@
 
 var Student = function Student(args) {
   this.isValid = function () {
-    if (args.firstName && args.lastName) return true;
+    if (args.firstName && args.lastName) {
+      return true;
+    }
+
     return false;
   };
 

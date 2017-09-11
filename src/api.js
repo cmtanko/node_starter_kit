@@ -21,21 +21,20 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '/../public')));
 app.use('/api', routes);
 
-//serve swagger
+// serve swagger
 app.get('/swagger.json', (req, res) => {
-	res.setHeader('Content-Type', 'application/json');
-	res.send(swaggerSpec);
+  res.setHeader('Content-Type', 'application/json');
+  res.send(swaggerSpec);
 });
 
 app.get('/', (req, res) => {
-	res.send('<h1>Started...</h1><br><a href="http://localhost:3000/api-docs" target="_blank"> Documentation </a>');
+  res.send(
+    '<h1>Started...</h1><br><a href="http://localhost:3000/api-docs" target="_blank"> Documentation </a>'
+  );
 });
 
 app.listen(APP_PORT, () => {
-	logger.log(
-		'info',
-		'Server started at ' + APP_HOST + ':' + APP_PORT
-	);
+  logger.log('info', 'Server started at ' + APP_HOST + ':' + APP_PORT);
 });
 
 export default app;

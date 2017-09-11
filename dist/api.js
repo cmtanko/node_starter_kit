@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 require('babel-polyfill');
@@ -55,18 +55,18 @@ app.use(_bodyParser2.default.json());
 app.use(_express2.default.static(_path2.default.join(__dirname, '/../public')));
 app.use('/api', _routes2.default);
 
-//serve swagger
+// serve swagger
 app.get('/swagger.json', function (req, res) {
-	res.setHeader('Content-Type', 'application/json');
-	res.send(_swagger2.default);
+  res.setHeader('Content-Type', 'application/json');
+  res.send(_swagger2.default);
 });
 
 app.get('/', function (req, res) {
-	res.send('<h1>Started...</h1><br><a href="http://localhost:3000/api-docs" target="_blank"> Documentation </a>');
+  res.send('<h1>Started...</h1><br><a href="http://localhost:3000/api-docs" target="_blank"> Documentation </a>');
 });
 
 app.listen(APP_PORT, function () {
-	_logger2.default.log('info', 'Server started at ' + APP_HOST + ':' + APP_PORT);
+  _logger2.default.log('info', 'Server started at ' + APP_HOST + ':' + APP_PORT);
 });
 
 exports.default = app;

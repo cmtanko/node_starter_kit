@@ -4,7 +4,11 @@
   "description": "Backend API with node , starter kit",
   "main": "dist/api.js",
   "scripts": {
+    "preinstall": "npm install pm2 -g",
     "start": "pm2 start dist/api.js -i max --attach",
+    "prestart": "npm run lint --silent",
+    "lint": "eslint src && npm run test",
+    "precommit": "npm run lint --silent",
     "compile": "babel -d ./dist ./src -s --watch",
     "dev": "nodemon --watch dist"
   },
@@ -45,11 +49,13 @@
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jasmine": "^2.8.4",
     "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-prettier": "^2.2.0",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
     "husky": "^0.14.3",
     "lint-staged": "^4.0.3",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "prettier": "^1.6.1"
   },
   "bugs": {
     "url": "https://github.com/cmtanko/node_starter_kit/issues"
