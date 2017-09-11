@@ -10,7 +10,9 @@
     "lint": "eslint src && npm run test",
     "precommit": "npm run lint --silent",
     "compile": "babel -d ./dist ./src -s --watch",
-    "dev": "nodemon --watch dist"
+    "dev": "nodemon --watch dist",
+    "stop": "pm2 stop api",
+    "test": "mocha './test/**/*.spec.js'"
   },
   "repository": {
     "type": "git",

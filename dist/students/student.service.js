@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getStudent = exports.getStudentList = undefined;
+exports.getStudentWithId = exports.getStudent = exports.getStudentList = undefined;
 
 var _lodash = require('lodash');
 
@@ -50,15 +50,20 @@ var getStudentList = exports.getStudentList = function getStudentList(cb) {
 };
 
 var getStudent = exports.getStudent = function getStudent(id, cb) {
-  var student = _lodash2.default.find(students, function (s) {
-    return s.id === id;
-  }) || undefined;
+  var student = getStudentWithId(students, id);
   if (student) {
     cb(null, student);
   } else {
     cb('Unable to get Student with id =' + id, null);
   }
 };
+
+var getStudentWithId = exports.getStudentWithId = function getStudentWithId(students, id) {
+  return _lodash2.default.find(students, function (s) {
+    return s.id === id;
+  }) || false;
+};
+
 exports.default = {
   getStudentList: getStudentList,
   getStudent: getStudent

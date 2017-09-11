@@ -51,16 +51,22 @@ export const getStudentList = cb => {
 };
 
 export const getStudent = (id, cb) => {
-  let student =
-    _.find(students, s => {
-      return s.id === id;
-    }) || undefined;
+  let student = getStudentWithId(students, id);
   if (student) {
     cb(null, student);
   } else {
     cb('Unable to get Student with id =' + id, null);
   }
 };
+
+export const getStudentWithId = (students, id) => {
+  return (
+    _.find(students, s => {
+      return s.id === id;
+    }) || false
+  );
+};
+
 export default {
   getStudentList,
   getStudent,
