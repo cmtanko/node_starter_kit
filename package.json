@@ -9,8 +9,8 @@
     "prestart": "npm run lint --silent",
     "lint": "eslint src && npm run test",
     "precommit": "npm run lint --silent",
-    "compile": "babel -d ./dist ./src -s --watch",
-    "dev": "nodemon --watch dist",
+    "build": "babel -d ./dist ./src -s",
+    "dev": "nodemon src/api.js --exec babel-node src/api.js",
     "stop": "pm2 stop api",
     "test": "mocha './test/**/*.spec.js'"
   },
