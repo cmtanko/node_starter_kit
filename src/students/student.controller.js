@@ -4,14 +4,10 @@ import Student from '../models/student';
 const studentController = () => {
   const getAllStudents = (req, res) => {
     const query = parseInt(req.query['q']) || undefined;
-    try {
-      if (query) {
-        getStudentById(query, res);
-      } else {
-        listStudents(res);
-      }
-    } catch (error) {
-      handleError(error, res);
+    if (query) {
+      getStudentById(query, res);
+    } else {
+      listStudents(res);
     }
   };
 
