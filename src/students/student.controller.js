@@ -8,30 +8,16 @@ const studentController = () => {
       if (query) {
         studentService.getStudent(query, (err, data) => {
           if (err) {
-            res.send({
-              success: false,
-              results: 'Unable to get data' + err,
-            });
-
-            return;
+            handleError(err, res);
           }
 
           let student = new Student(data);
-
-          res.send({
-            success: true,
-            results: student,
-          });
+          onSuccess(student, res);
         });
       } else {
         studentService.getStudentList((err, data) => {
           if (err) {
-            res.send({
-              success: false,
-              results: 'Unable to get data' + err,
-            });
-
-            return;
+            handleError(err, res);
           }
 
           let students = [];
@@ -40,23 +26,31 @@ const studentController = () => {
             students.push(student);
           }, this);
 
-          res.send({
-            success: true,
-            results: students,
-          });
+          onSuccess(students, res);
         });
       }
     } catch (error) {
-      res.send({
-        success: false,
-        message: 'Unable to get data ' + error,
-      });
+      handleError(error, res);
     }
   };
 
   return {
     getAllStudents: getAllStudents,
   };
+};
+
+const handleError = (error, res) => {
+  return res.send({
+    success: false,
+    message: 'Unable to get data ' + error,
+  });
+};
+
+const onSuccess = (result, res) => {
+  res.send({
+    success: true,
+    results: result,
+  });
 };
 
 export default studentController;
