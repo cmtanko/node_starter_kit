@@ -6,28 +6,9 @@ const studentController = () => {
     const query = parseInt(req.query['q']) || undefined;
     try {
       if (query) {
-        studentService.getStudent(query, (err, data) => {
-          if (err) {
-            handleError(err, res);
-          }
-
-          let student = new Student(data);
-          onSuccess(student, res);
-        });
+        getStudentById(query, res);
       } else {
-        studentService.getStudentList((err, data) => {
-          if (err) {
-            handleError(err, res);
-          }
-
-          let students = [];
-          data.forEach(function(s) {
-            let student = new Student(s);
-            students.push(student);
-          }, this);
-
-          onSuccess(students, res);
-        });
+        listStudents(res);
       }
     } catch (error) {
       handleError(error, res);
@@ -50,6 +31,33 @@ const onSuccess = (result, res) => {
   res.send({
     success: true,
     results: result,
+  });
+};
+
+const getStudentById = (query, res) => {
+  studentService.getStudent(query, (err, data) => {
+    if (err) {
+      handleError(err, res);
+    }
+
+    let student = new Student(data);
+    onSuccess(student, res);
+  });
+};
+
+const listStudents = res => {
+  studentService.getStudentList((err, data) => {
+    if (err) {
+      handleError(err, res);
+    }
+
+    let students = [];
+    data.forEach(function(s) {
+      let student = new Student(s);
+      students.push(student);
+    }, this);
+
+    onSuccess(students, res);
   });
 };
 
