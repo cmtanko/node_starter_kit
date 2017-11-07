@@ -12,8 +12,8 @@
     "build": "babel -d ./dist ./src -s",
     "dev": "nodemon src/api.js --exec babel-node src/api.js",
     "stop": "pm2 stop api",
-    "test": "mocha './test/**/*.spec.js'",
-    "test:coverage": "istanbul cover node_modules/mocha/bin/_mocha -- test/**/*"
+    "test": "npm run coverage",
+    "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- test/**/*"
   },
   "repository": {
     "type": "git",
