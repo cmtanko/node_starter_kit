@@ -1,6 +1,10 @@
 # Node Starter Kit
 (Node , Express)
 
+[![Code Climate](https://codeclimate.com/github/cmtanko/node_starter_kit/badges/gpa.svg)](https://codeclimate.com/github/cmtanko/node_starter_kit)
+[![Build Status](https://travis-ci.org/cmtanko/node_starter_kit.svg?branch=master)](https://travis-ci.org/cmtanko/node_starter_kit)
+[![Codecov](https://codecov.io/gh/cmtanko/node_starter_kit/branch/master/graph/badge.svg)](https://codecov.io/gh/cmtanko/node_starter_kit)
+
 There are various other node starter kit out there yet, Created this one with specific dependencies
 Features:
 -EcmaScript 2015 /ES6
