@@ -3,7 +3,7 @@
 
 [![Code Climate](https://codeclimate.com/github/cmtanko/node_starter_kit/badges/gpa.svg)](https://codeclimate.com/github/cmtanko/node_starter_kit)
 [![Build Status](https://travis-ci.org/cmtanko/node_starter_kit.svg?branch=master)](https://travis-ci.org/cmtanko/node_starter_kit)
-[![Codecov](https://codecov.io/gh/cmtanko/node_starter_kit/branch/master/graph/badge.svg)](https://codecov.io/gh/cmtanko/node_starter_kit)
+[![Codecov](https://api.codeclimate.com/v1/badges/ba594bcde8c75c8f76d0/test_coverage)](https://codeclimate.com/github/cmtanko/node_starter_kit/test_coverage)
 
 There are various other node starter kit out there yet, Created this one with specific dependencies
 Features:
