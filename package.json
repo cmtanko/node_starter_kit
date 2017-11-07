@@ -12,7 +12,8 @@
     "build": "babel -d ./dist ./src -s",
     "dev": "nodemon src/api.js --exec babel-node src/api.js",
     "stop": "pm2 stop api",
-    "test": "mocha './test/**/*.spec.js'"
+    "test": "mocha './test/**/*.spec.js'",
+    "test:coverage": "istanbul cover node_modules/mocha/bin/_mocha -- test/**/*"
   },
   "repository": {
     "type": "git",
@@ -55,6 +56,7 @@
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
     "husky": "^0.14.3",
+    "istanbul": "^0.4.5",
     "lint-staged": "^4.0.3",
     "nodemon": "^1.11.0",
     "prettier": "^1.6.1"
