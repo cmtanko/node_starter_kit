@@ -19,7 +19,7 @@ const studentController = () => {
 const handleError = (error, res) => {
   return res.send({
     success: false,
-    message: 'Unable to get data ' + error,
+    message: 'Unable to get data, Error: ' + error,
   });
 };
 
