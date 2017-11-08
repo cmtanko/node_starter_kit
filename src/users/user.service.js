@@ -67,9 +67,18 @@ export function deleteUser(id) {
 }
 
 export function addUser(user) {
-  return db('user')
-    .insert(user, 'user_id')
-    .then();
+  let address = user.address;
+  delete user.address;
+
+  return db.transaction(function(trx){
+    return trx
+      .insert(address,'address_id')
+      .into("address")
+      .then(function(ids){
+        user.address_id = ids[0];
+        return trx.insert(user,'user_id').into("user");
+      });
+  });
 }
 
 export default {
