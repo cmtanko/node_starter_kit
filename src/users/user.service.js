@@ -59,30 +59,22 @@ export function getUser(id) {
     .then();
 }
 
-export function getCountryList() {
-  return db('country')
-    .select('country')
-    .orderBy('country')
-    .then();
-}
-export function getCountry(id) {
-  return db('country')
-    .select('country')
-    .where('country_id', id)
-    .orderBy('country')
+export function deleteUser(id) {
+  return db('user')
+    .where('user_id', id)
+    .del()
     .then();
 }
 
-export function getCityList() {
-  return db('city')
-    .select('city')
-    .orderBy('city')
+export function addUser(user) {
+  return db('user')
+    .insert(user, 'user_id')
     .then();
 }
+
 export default {
   getUserList,
   getUser,
-  getCountryList,
-  getCountry,
-  getCityList,
+  deleteUser,
+  addUser,
 };

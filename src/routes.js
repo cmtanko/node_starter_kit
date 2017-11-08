@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import userController from './users/user.controller';
-import countryCountroller from './country/country.controller';
-
+import countryController from './country/country.controller';
+import cityController from './city/city.controller';
 const router = Router();
 /**
  * @swagger
@@ -37,6 +37,7 @@ const router = Router();
  *             $ref: '#/definitions/Status'
  */
 router.use('/users', userController);
-router.use('/countries', countryCountroller);
+router.use('/countries', countryController);
+router.use('/cities', cityController);
 
 export default router;

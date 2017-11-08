@@ -13,7 +13,23 @@ export function getCountry(id) {
     .orderBy('country')
     .then();
 }
+
+export function deleteCountry(id) {
+  return db('country')
+    .where('country_id', id)
+    .del()
+    .then();
+}
+
+export function addCountry(country) {
+  return db('country')
+    .insert(country, 'country_id')
+    .then();
+}
+
 export default {
   getCountryList,
   getCountry,
+  deleteCountry,
+  addCountry,
 };

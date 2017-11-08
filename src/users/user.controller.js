@@ -17,21 +17,17 @@ router.get('/:id', (req, res) => {
     .catch(err => res.json(err));
 });
 
-router.get('/country', (req, res) => {
+router.delete('/:id', (req, res) => {
   userService
-    .getCountryList()
+    .deleteUser(req.params.id)
     .then(data => res.json(data))
     .catch(err => res.json(err));
 });
-router.get('/country/:id', (req, res) => {
+
+router.post('/', (req, res) => {
+  let user = req.body;
   userService
-    .getCountry(req.params.id)
-    .then(data => res.json(data))
-    .catch(err => res.json(err));
-});
-router.get('/city', (req, res) => {
-  userService
-    .getCityList()
+    .addUser(user)
     .then(data => res.json(data))
     .catch(err => res.json(err));
 });
