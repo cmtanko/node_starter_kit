@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import studentsController from './students/student.controller';
+import userController from './users/user.controller';
+import countryCountroller from './country/country.controller';
 
 const router = Router();
 /**
@@ -23,16 +24,11 @@ const router = Router();
 /**
  * 
  * @swagger
- * /api/students:
+ * /api/users:
  *   get:
- *     summary: Get student with id
+ *     summary: Get user list
  *     tags:
- *       - Students
- *     parameters:
- *       - name: q
- *         in: query
- *         type: string
- *         required: false
+ *       - Users
  *     responses:
  *       200:
  *         schema:
@@ -40,6 +36,7 @@ const router = Router();
  *           items:
  *             $ref: '#/definitions/Status'
  */
-router.get('/students', studentsController().getAllStudents);
+router.use('/users', userController);
+router.use('/countries', countryCountroller);
 
 export default router;
