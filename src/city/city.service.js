@@ -18,7 +18,7 @@ export function getCityList(country) {
   } else {
     return db('city as c')
       .join('country as ry', 'ry.country_id', 'c.country_id')
-      .whereRaw('LOWER(ry.country) like "%" || LOWER(?) || "%"', country)
+      .whereRaw('LOWER(ry.country) like LOWER(?)', country)
       .select('c.city as cities:city', 'ry.country')
       .orderBy('c.city')
       .then(function(rows) {

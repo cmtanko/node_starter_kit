@@ -2,7 +2,7 @@ import db from '../db';
 
 export function getCountryList() {
   return db('country')
-    .select('country')
+    .select('country_id', 'country')
     .orderBy('country')
     .then();
 }
