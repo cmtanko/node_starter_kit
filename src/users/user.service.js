@@ -19,7 +19,6 @@ export function getUserList() {
       'a.phone as address:phone',
       'a.postal_code as address:postal_code'
     )
-    .orderBy('u.first_name')
     .then(function(rows) {
       let tree = new Treeize();
       tree.grow(rows);
@@ -48,7 +47,6 @@ export function getUser(id) {
       'a.phone as address:phone',
       'a.postal_code as address:postal_code'
     )
-    .orderBy('u.first_name')
     .then(function(rows) {
       let tree = new Treeize();
       tree.grow(rows);
