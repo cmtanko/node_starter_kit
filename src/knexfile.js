@@ -9,7 +9,7 @@ module.exports = {
       database: 'newUsers',
       password: 'postgres',
     },
-    debug: false,
+    debug: true,
     migrations: {
       tableName: 'knex_migrations',
     },

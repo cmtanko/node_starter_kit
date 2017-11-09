@@ -1,15 +1,14 @@
 import db from '../db';
 
-export function getCountryList() {
+export function getCountryList(id) {
+  let where = '';
+  if (id) {
+    where = `country_id = ${id}`;
+  }
+
   return db('country')
     .select('country_id', 'country')
-    .orderBy('country')
-    .then();
-}
-export function getCountry(id) {
-  return db('country')
-    .select('country')
-    .where('country_id', id)
+    .whereRaw(where)
     .orderBy('country')
     .then();
 }
@@ -29,7 +28,6 @@ export function addCountry(country) {
 
 export default {
   getCountryList,
-  getCountry,
   deleteCountry,
   addCountry,
 };

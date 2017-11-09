@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
   userService
-    .getUser(req.params.id)
+    .getUserList(req.params.id)
     .then(data => res.json(data))
     .catch(err => res.json(err));
 });
