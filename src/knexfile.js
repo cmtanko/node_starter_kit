@@ -5,7 +5,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 module.exports = {
   development: {
-    client: process.env.DB_CLIENT,
+    client: 'postgresql',
     connection: {
       host: process.env.DB_HOST,
       user: process.env.DB_USER,
