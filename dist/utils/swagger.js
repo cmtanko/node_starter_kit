@@ -25,7 +25,7 @@ var swaggerDefinition = {
     version: process.env.APP_VERSION,
     description: process.env.APP_DESCRIPTION
   },
-  host: process.env.APP_HOST,
+  host: process.env.SWAGGER_HOST,
   basePath: process.env.BASE_PATH
 };
 
