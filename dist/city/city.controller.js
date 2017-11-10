@@ -31,12 +31,6 @@ var router = (0, _express.Router)();
  *         in: query
  *         type: string
  *         required: false
- *     responses:
- *       200:
- *         schema:
- *           type: array
- *           items:
- *             $ref: '#/definitions/City'
  */
 
 router.get('/', function (req, res) {
@@ -62,12 +56,6 @@ router.get('/', function (req, res) {
  *         in: path
  *         type: integer
  *         required: true
- *     responses:
- *       200:
- *         schema:
- *           type: object
- *           items:
- *             $ref: '#/definitions/City'
  */
 router.get('/:id', function (req, res) {
   _city2.default.getCity(req.params.id).then(function (data) {
@@ -91,12 +79,6 @@ router.get('/:id', function (req, res) {
  *         in: path
  *         type: integer
  *         required: true
- *     responses:
- *       200:
- *         schema:
- *           type: object
- *           items:
- *             $ref: '#/definitions/City'
  */
 router.delete('/:id', function (req, res) {
   _city2.default.deleteCity(req.params.id).then(function (data) {

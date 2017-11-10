@@ -10,12 +10,6 @@ const router = Router();
  *     summary: Get user list
  *     tags:
  *       - Users
- *     responses:
- *       200:
- *         schema:
- *           type: array
- *           items:
- *             $ref: '#/definitions/User'
  */
 router.get('/', (req, res) => {
   userService
@@ -37,12 +31,6 @@ router.get('/', (req, res) => {
  *         in: path
  *         type: integer
  *         required: true
- *     responses:
- *       200:
- *         schema:
- *           type: object
- *           items:
- *             $ref: '#/definitions/User'
  */
 router.get('/:id', (req, res) => {
   userService
@@ -65,12 +53,6 @@ router.get('/:id', (req, res) => {
  *         in: path
  *         type: integer
  *         required: true
- *     responses:
- *       200:
- *         schema:
- *           type: object
- *           items:
- *             $ref: '#/definitions/User'
  */
 router.delete('/:id', (req, res) => {
   userService

@@ -9,12 +9,6 @@ const router = Router();
  *     summary: List all countries
  *     tags:
  *       - Countries
- *     responses:
- *       200:
- *         schema:
- *           type: array
- *           items:
- *             $ref: '#/definitions/Country'
  */
 router.get('/', (req, res) => {
   countryService
@@ -37,12 +31,6 @@ router.get('/', (req, res) => {
  *         in: path
  *         type: integer
  *         required: true
- *     responses:
- *       200:
- *         schema:
- *           type: object
- *           items:
- *             $ref: '#/definitions/Country'
  */
 
 router.get('/:id', (req, res) => {
@@ -66,12 +54,6 @@ router.get('/:id', (req, res) => {
  *         in: path
  *         type: integer
  *         required: true
- *     responses:
- *       200:
- *         schema:
- *           type: object
- *           items:
- *             $ref: '#/definitions/Country'
  */
 router.delete('/:id', (req, res) => {
   countryService

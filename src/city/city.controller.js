@@ -17,12 +17,6 @@ const router = Router();
  *         in: query
  *         type: string
  *         required: false
- *     responses:
- *       200:
- *         schema:
- *           type: array
- *           items:
- *             $ref: '#/definitions/City'
  */
 
 router.get('/', (req, res) => {
@@ -47,12 +41,6 @@ router.get('/', (req, res) => {
  *         in: path
  *         type: integer
  *         required: true
- *     responses:
- *       200:
- *         schema:
- *           type: object
- *           items:
- *             $ref: '#/definitions/City'
  */
 router.get('/:id', (req, res) => {
   cityService
@@ -75,12 +63,6 @@ router.get('/:id', (req, res) => {
  *         in: path
  *         type: integer
  *         required: true
- *     responses:
- *       200:
- *         schema:
- *           type: object
- *           items:
- *             $ref: '#/definitions/City'
  */
 router.delete('/:id', (req, res) => {
   cityService

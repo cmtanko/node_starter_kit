@@ -20,12 +20,6 @@ var router = (0, _express.Router)();
  *     summary: List all countries
  *     tags:
  *       - Countries
- *     responses:
- *       200:
- *         schema:
- *           type: array
- *           items:
- *             $ref: '#/definitions/Country'
  */
 router.get('/', function (req, res) {
   _country2.default.getCountryList().then(function (data) {
@@ -49,12 +43,6 @@ router.get('/', function (req, res) {
  *         in: path
  *         type: integer
  *         required: true
- *     responses:
- *       200:
- *         schema:
- *           type: object
- *           items:
- *             $ref: '#/definitions/Country'
  */
 
 router.get('/:id', function (req, res) {
@@ -79,12 +67,6 @@ router.get('/:id', function (req, res) {
  *         in: path
  *         type: integer
  *         required: true
- *     responses:
- *       200:
- *         schema:
- *           type: object
- *           items:
- *             $ref: '#/definitions/Country'
  */
 router.delete('/:id', function (req, res) {
   _country2.default.deleteCountry(req.params.id).then(function (data) {

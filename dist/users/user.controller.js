@@ -21,12 +21,6 @@ var router = (0, _express.Router)();
  *     summary: Get user list
  *     tags:
  *       - Users
- *     responses:
- *       200:
- *         schema:
- *           type: array
- *           items:
- *             $ref: '#/definitions/User'
  */
 router.get('/', function (req, res) {
   _user2.default.getUserList().then(function (data) {
@@ -49,12 +43,6 @@ router.get('/', function (req, res) {
  *         in: path
  *         type: integer
  *         required: true
- *     responses:
- *       200:
- *         schema:
- *           type: object
- *           items:
- *             $ref: '#/definitions/User'
  */
 router.get('/:id', function (req, res) {
   _user2.default.getUserList(req.params.id).then(function (data) {
@@ -78,12 +66,6 @@ router.get('/:id', function (req, res) {
  *         in: path
  *         type: integer
  *         required: true
- *     responses:
- *       200:
- *         schema:
- *           type: object
- *           items:
- *             $ref: '#/definitions/User'
  */
 router.delete('/:id', function (req, res) {
   _user2.default.deleteUser(req.params.id).then(function (data) {
