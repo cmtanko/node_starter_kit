@@ -15,7 +15,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const app = express();
-const APP_PORT = process.env.APP_PORT || 3000;
+const APP_PORT = process.env.PORT || 3000;
 const APP_HOST = process.env.APP_HOST || 'localhost';
 
 app.set('port', APP_PORT);

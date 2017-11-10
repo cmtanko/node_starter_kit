@@ -49,7 +49,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 var app = (0, _express2.default)();
-var APP_PORT = process.env.APP_PORT || 3000;
+var APP_PORT = process.env.PORT || 3000;
 var APP_HOST = process.env.APP_HOST || 'localhost';
 
 app.set('port', APP_PORT);
