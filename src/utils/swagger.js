@@ -9,7 +9,7 @@ let swaggerDefinition = {
     description: 'API with node, starter kit',
   },
   host: 'localhost:3000',
-  basePath: '/',
+  basePath: '/api',
 };
 
 // options for the swagger docs
@@ -17,10 +17,7 @@ let options = {
   // import swaggerDefinitions
   swaggerDefinition: swaggerDefinition,
   // path to the API docs
-  apis: [
-    path.join(__dirname, '../students/*.js'),
-    path.join(__dirname, '../*.js'),
-  ],
+  apis: [path.join(__dirname, '../**/*.js'), path.join(__dirname, '../*.js')],
 };
 
 // initialize swagger-jsdoc

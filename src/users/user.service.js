@@ -1,5 +1,6 @@
 import db from '../db';
 import Treeize from 'treeize';
+import _ from 'lodash';
 
 export function getUserList(id) {
   let where = '';
@@ -43,18 +44,33 @@ export function deleteUser(id) {
 }
 
 export function addUser(user) {
+  let userId = _.get(user, 'user_id');
   let address = user.address;
   delete user.address;
 
   return db.transaction(function(trx) {
-    return trx
-      .insert(address, 'address_id')
-      .into('address')
-      .then(function(ids) {
-        user.address_id = ids[0];
+    if (userId) {
+      return trx
+        .insert(address, 'address_id')
+        .into('address')
+        .then(function(ids) {
+          user.address_id = ids[0];
 
-        return trx.insert(user, 'user_id').into('user');
-      });
+          return trx
+            .update(user, 'user_id')
+            .where('user_id', userId)
+            .into('user');
+        });
+    } else {
+      return trx
+        .insert(address, 'address_id')
+        .into('address')
+        .then(function(ids) {
+          user.address_id = ids[0];
+
+          return trx.insert(user, 'user_id').into('user');
+        });
+    }
   });
 }
 
