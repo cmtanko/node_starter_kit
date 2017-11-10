@@ -44,9 +44,18 @@ var _swagger2 = _interopRequireDefault(_swagger);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').load();
+}
+
 var app = (0, _express2.default)();
-var APP_PORT = process.env.PORT || 3000;
+var APP_PORT = process.env.APP_PORT || 3000;
 var APP_HOST = process.env.APP_HOST || 'localhost';
+
+app.set('port', APP_PORT);
+app.set('host', APP_HOST);
+app.locals.title = process.env.APP_NAME;
+app.locals.version = process.env.APP_VERSION;
 
 app.use((0, _cors2.default)());
 app.use((0, _helmet2.default)());
@@ -62,11 +71,11 @@ app.get('/swagger.json', function (req, res) {
 });
 
 app.get('/', function (req, res) {
-  res.send('<div style="margin:50px;" ><h1>Created with Node Starter kit</h1><br>' + '<p>There are various other node starter kit out there yet,<br> Created this one with specific dependencies Features:<p>' + '<ul><li>EcmaScript 2015 /ES6</li> <li>Unit Testing Setup with Mocha/Chai</li> <li>Commit checking with Husky and Linting with ESLint</li> <li>Logger</li> <li>Swagger</li> <li>Process Management with PM2</li></ul>' + '<br><a href="http://localhost:3000/api-docs" target="_blank"> Documentation </a></div>');
+  res.send('<div style="margin:50px;" ><h1>Created with Node Starter kit</h1><br>' + '<p>There are various other node starter kit out there yet,<br> Created this one with specific dependencies Features:<p>' + '<ul><li>EcmaScript 2015 /ES6</li> <li>Unit Testing Setup with Mocha/Chai</li> <li>Commit checking with Husky and Linting with ESLint</li> <li>Logger</li> <li>Swagger</li> <li>Process Management with PM2</li></ul>' + '<br><a href="http://' + app.get('host') + ':' + app.get('port') + '/api-docs" target="_blank"> Documentation </a></div>' + 'ENV : ' + process.env.NODE_ENV + JSON.stringify(process.env));
 });
 
 app.listen(APP_PORT, function () {
-  _logger2.default.log('info', 'Server started at ' + APP_HOST + ':' + APP_PORT);
+  _logger2.default.log('info', 'Server started at ' + app.get('host') + ':' + app.get('port'));
 });
 
 exports.default = app;

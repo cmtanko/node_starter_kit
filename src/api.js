@@ -47,7 +47,8 @@ app.get('/', (req, res) => {
       app.get('port') +
       '/api-docs" target="_blank"> Documentation </a></div>' +
       'ENV : ' +
-      process.env.NODE_ENV
+      process.env.NODE_ENV +
+      JSON.stringify(process.env)
   );
 });
 
