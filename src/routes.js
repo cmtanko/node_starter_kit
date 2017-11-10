@@ -6,38 +6,77 @@ const router = Router();
 /**
  * @swagger
  * definitions:
- *   Status:
+ *   User:
  *     properties:
- *       firstName:
+ *       first_name:
  *         type: string
- *       lastName:
+ *       last_name:
  *         type: string
- *       age:
+ *       email:
  *         type: string
- *       gender:
+ *       activebool:
+ *         type: boolean
+ *       address:
+ *         $ref: '#/definitions/Address'
+  *   UserPut:
+ *     properties:
+ *       user_id:
+ *         type: integer
+ *       first_name:
  *         type: string
- *       class:
+ *       last_name:
  *         type: string
- *       hobbies:
+ *       email:
+ *         type: string
+ *       activebool:
+ *         type: boolean
+ *       address:
+ *         $ref: '#/definitions/Address'
+ *   Address:
+ *     type: object
+ *     properties:
+ *       address:
+ *         type: string
+ *       address2:
+ *         type: string
+ *       district:
+ *         type: string
+ *       city_id:
+ *         type: integer
+ *       phone:
+ *         type: string
+ *       postal_code:
+ *         type: string
+ *   City:
+ *     properties:
+ *       city:
+ *         type: string
+ *       country_id:
+ *         type: integer
+ *   CityPut:
+ *     properties:
+ *       city_id:
+ *         type: integer
+ *       city:
+ *         type: string
+ *       country_id:
+ *         type: integer
+ *   Country:
+ *     properties:
+ *       country:
+ *         type: string
+ *   CountryPut:
+ *     properties:
+ *       country_id:
+ *         type: integer
+ *       country:
  *         type: string
  */
-/**
- * 
- * @swagger
- * /api/users:
- *   get:
- *     summary: Get user list
- *     tags:
- *       - Users
- *     responses:
- *       200:
- *         schema:
- *           type: array
- *           items:
- *             $ref: '#/definitions/Status'
- */
+
 router.use('/users', userController);
+
 router.use('/countries', countryController);
+
 router.use('/cities', cityController);
 
 export default router;

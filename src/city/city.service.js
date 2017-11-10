@@ -1,5 +1,6 @@
 import db from '../db';
 import Treeize from 'treeize';
+import _ from 'lodash';
 
 export function getCityList(country) {
   let where = '';
@@ -45,9 +46,17 @@ export function deleteCity(id) {
 }
 
 export function addCity(city) {
-  return db('city')
-    .insert(city, 'city_id')
-    .then();
+  let cityId = _.get(city, 'city_id');
+  if (cityId) {
+    return db('city')
+      .update(city, 'city_id')
+      .where('city_id', cityId)
+      .then();
+  } else {
+    return db('city')
+      .insert(city, 'city_id')
+      .then();
+  }
 }
 
 export default {
