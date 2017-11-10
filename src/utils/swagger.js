@@ -11,7 +11,7 @@ let swaggerDefinition = {
     version: process.env.APP_VERSION,
     description: process.env.APP_DESCRIPTION,
   },
-  host: process.env.APP_HOST + ':' + process.env.APP_PORT,
+  host: process.env.APP_HOST,
   basePath: process.env.BASE_PATH,
 };
 
