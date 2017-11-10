@@ -8,7 +8,7 @@ let swaggerDefinition = {
     version: '1.0.0',
     description: 'API with node, starter kit',
   },
-  host: 'localhost:3000',
+  host: 'https://node-starter-kit-demo.herokuapp.com/',
   basePath: '/api',
 };
 
