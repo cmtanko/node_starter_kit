@@ -41,17 +41,14 @@ app.get('/', (req, res) => {
     '<div style="margin:50px;" ><h1>Created with Node Starter kit</h1><br>' +
       '<p>There are various other node starter kit out there yet,<br> Created this one with specific dependencies Features:<p>' +
       '<ul><li>EcmaScript 2015 /ES6</li> <li>Unit Testing Setup with Mocha/Chai</li> <li>Commit checking with Husky and Linting with ESLint</li> <li>Logger</li> <li>Swagger</li> <li>Process Management with PM2</li></ul>' +
-      '<br><a href="http://' +
-      app.get('host') +
-      ':' +
-      app.get('port') +
+      '<br><a href="' +
       '/api-docs" target="_blank"> Documentation </a></div>' +
-      'ENVIRONMENT: ' +
+      'ENVIRONMENT: <br>' +
       process.env.NODE_ENV +
       '<br>' +
-      'APP: ' +
+      'APP: <br>' +
       process.env.APP_HOST +
-      ' : ' +
+      ' <br> ' +
       process.env.APP_NAME +
       '(' +
       process.env.APP_VERSION +
