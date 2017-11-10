@@ -1,9 +1,9 @@
 # Node Starter Kit
 (Node , Express)
 
-> Demo (https://node-starter-kit-demo.herokuapp.com)
+> [[Demo](https://node-starter-kit-demo.herokuapp.com)]
 
-![Code Climate](https://codeclimate.com/github/cmtanko/node_starter_kit/badges/gpa.svg)](https://codeclimate.com/github/cmtanko/node_starter_kit)
+[![Code Climate](https://codeclimate.com/github/cmtanko/node_starter_kit/badges/gpa.svg)](https://codeclimate.com/github/cmtanko/node_starter_kit)
 [![Build Status](https://travis-ci.org/cmtanko/node_starter_kit.svg?branch=master)](https://travis-ci.org/cmtanko/node_starter_kit)
 [![Codecov](https://api.codeclimate.com/v1/badges/ba594bcde8c75c8f76d0/test_coverage)](https://codeclimate.com/github/cmtanko/node_starter_kit/test_coverage)
 
