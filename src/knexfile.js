@@ -1,13 +1,16 @@
 // Update with your config settings.
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').load();
+}
 
 module.exports = {
   development: {
-    client: 'postgresql',
+    client: process.env.DB_CLIENT,
     connection: {
-      host: 'localhost',
-      user: 'postgres',
-      database: 'newUsers',
-      password: 'postgres',
+      host: process.env.DB_HOST,
+      user: process.env.DB_USER,
+      database: process.env.DB_NAME,
+      password: process.env.DB_PASSWORD,
     },
     debug: true,
     migrations: {

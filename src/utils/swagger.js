@@ -1,15 +1,18 @@
 import path from 'path';
 import swaggerJSDoc from 'swagger-jsdoc';
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').load();
+}
 
 // swagger definition
 let swaggerDefinition = {
   info: {
-    title: 'NODE STARTER KIT',
-    version: '1.0.0',
-    description: 'API with node, starter kit',
+    title: process.env.APP_NAME,
+    version: process.env.APP_VERSION,
+    description: process.env.APP_DESCRIPTION,
   },
-  host: 'https://node-starter-kit-demo.herokuapp.com/',
-  basePath: '/api',
+  host: process.env.APP_HOST + ':' + process.env.APP_PORT,
+  basePath: process.env.BASE_PATH,
 };
 
 // options for the swagger docs
