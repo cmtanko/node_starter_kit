@@ -6,9 +6,17 @@ Object.defineProperty(exports, "__esModule", {
 
 var _express = require('express');
 
-var _student = require('./students/student.controller');
+var _user = require('./users/user.controller');
 
-var _student2 = _interopRequireDefault(_student);
+var _user2 = _interopRequireDefault(_user);
+
+var _country = require('./country/country.controller');
+
+var _country2 = _interopRequireDefault(_country);
+
+var _city = require('./city/city.controller');
+
+var _city2 = _interopRequireDefault(_city);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -16,42 +24,78 @@ var router = (0, _express.Router)();
 /**
  * @swagger
  * definitions:
- *   Status:
+ *   User:
  *     properties:
- *       firstName:
+ *       first_name:
  *         type: string
- *       lastName:
+ *       last_name:
  *         type: string
- *       age:
+ *       email:
  *         type: string
- *       gender:
+ *       activebool:
+ *         type: boolean
+ *       address:
+ *         $ref: '#/definitions/Address'
+  *   UserPut:
+ *     properties:
+ *       user_id:
+ *         type: integer
+ *       first_name:
  *         type: string
- *       class:
+ *       last_name:
  *         type: string
- *       hobbies:
+ *       email:
+ *         type: string
+ *       activebool:
+ *         type: boolean
+ *       address:
+ *         $ref: '#/definitions/Address'
+ *   Address:
+ *     type: object
+ *     properties:
+ *       address:
+ *         type: string
+ *       address2:
+ *         type: string
+ *       district:
+ *         type: string
+ *       city_id:
+ *         type: integer
+ *       phone:
+ *         type: string
+ *       postal_code:
+ *         type: string
+ *   City:
+ *     properties:
+ *       city:
+ *         type: string
+ *       country_id:
+ *         type: integer
+ *   CityPut:
+ *     properties:
+ *       city_id:
+ *         type: integer
+ *       city:
+ *         type: string
+ *       country_id:
+ *         type: integer
+ *   Country:
+ *     properties:
+ *       country:
+ *         type: string
+ *   CountryPut:
+ *     properties:
+ *       country_id:
+ *         type: integer
+ *       country:
  *         type: string
  */
-/**
- * 
- * @swagger
- * /api/students:
- *   get:
- *     summary: Get student with id
- *     tags:
- *       - Students
- *     parameters:
- *       - name: q
- *         in: query
- *         type: string
- *         required: false
- *     responses:
- *       200:
- *         schema:
- *           type: array
- *           items:
- *             $ref: '#/definitions/Status'
- */
-router.get('/students', (0, _student2.default)().getAllStudents);
+
+router.use('/users', _user2.default);
+
+router.use('/countries', _country2.default);
+
+router.use('/cities', _city2.default);
 
 exports.default = router;
 //# sourceMappingURL=routes.js.map

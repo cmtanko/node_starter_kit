@@ -62,7 +62,7 @@ app.get('/swagger.json', function (req, res) {
 });
 
 app.get('/', function (req, res) {
-  res.send('<h1>Started...</h1><br><a href="http://localhost:3000/api-docs" target="_blank"> Documentation </a>');
+  res.send('<div style="margin:50px;" ><h1>Created with Node Starter kit</h1><br>' + '<p>There are various other node starter kit out there yet,<br> Created this one with specific dependencies Features:<p>' + '<ul><li>EcmaScript 2015 /ES6</li> <li>Unit Testing Setup with Mocha/Chai</li> <li>Commit checking with Husky and Linting with ESLint</li> <li>Logger</li> <li>Swagger</li> <li>Process Management with PM2</li></ul>' + '<br><a href="http://localhost:3000/api-docs" target="_blank"> Documentation </a></div>');
 });
 
 app.listen(APP_PORT, function () {

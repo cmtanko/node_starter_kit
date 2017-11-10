@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/db.js"],"names":["module","exports"],"mappings":";;AAAA;;AACA;;;;;;AAEAA,OAAOC,OAAP,GAAiB,0CAAjB","file":"db.js","sourcesContent":["import { development as cfg } from './knexfile';\nimport knex from 'knex';\n\nmodule.exports = knex(cfg);\n"]}
