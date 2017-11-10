@@ -6,7 +6,7 @@
   "scripts": {
     "preinstall": "npm install pm2 -g",
     "start": "pm2 start dist/api.js -i max --attach",
-    "prestart": "npm run lint --silent",
+    // "prestart": "npm run lint --silent",
     "lint": "eslint src && npm run test",
     "codecov": "cat coverage/lcov.info | codecov",
     "precommit": "npm run lint --silent",
