@@ -5,7 +5,7 @@
   "main": "dist/api.js",
   "scripts": {
     "preinstall": "npm install pm2 -g",
-    "start": "node dist/api.js",
+    "start": "pm2 start dist/api.js -i max --attach",
     "lint": "eslint src && npm run test",
     "codecov": "cat coverage/lcov.info | codecov",
     "precommit": "npm run lint --silent",
