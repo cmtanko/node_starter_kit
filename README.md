@@ -1,5 +1,5 @@
 # Node Starter Kit
-> [Demo Here(https://node-starter-kit-demo.herokuapp.com)]
+> [Demo Here](https://node-starter-kit-demo.herokuapp.com)
 
 [![Code Climate](https://codeclimate.com/github/cmtanko/node_starter_kit/badges/gpa.svg)](https://codeclimate.com/github/cmtanko/node_starter_kit)
 [![Build Status](https://travis-ci.org/cmtanko/node_starter_kit.svg?branch=master)](https://travis-ci.org/cmtanko/node_starter_kit)
@@ -7,12 +7,12 @@
 
 There are various other node starter kit out there yet, Created this one with specific dependencies
 Features:
--EcmaScript 2015 /ES6
--Unit Testing Setup with Mocha/Chai
--Commit checking with Husky and Linting with ESLint
--Logger
--Swagger
--Process Management with PM2
+> EcmaScript 2015 /ES6
+> Unit Testing Setup with Mocha/Chai
+> Commit checking with Husky and Linting with ESLint
+> Logger
+> Swagger
+> Process Management with PM2
 
 ## To work or contribute in the project
 
