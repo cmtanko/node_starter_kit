@@ -51,6 +51,7 @@ if (process.env.NODE_ENV !== 'production') {
 var app = (0, _express2.default)();
 var APP_PORT = process.env.PORT || 3000;
 var APP_HOST = process.env.APP_HOST || 'localhost';
+var env = process.env.NODE_ENV || 'development';
 
 app.set('port', APP_PORT);
 app.set('host', APP_HOST);
@@ -71,7 +72,7 @@ app.get('/swagger.json', function (req, res) {
 });
 
 app.get('/', function (req, res) {
-  res.send('<div style="margin:50px;" ><h1>Created with Node Starter kit</h1><br>' + '<p>There are various other node starter kit out there yet,<br> Created this one with specific dependencies Features:<p>' + '<ul><li>EcmaScript 2015 /ES6</li> <li>Unit Testing Setup with Mocha/Chai</li> <li>Commit checking with Husky and Linting with ESLint</li> <li>Logger</li> <li>Swagger</li> <li>Process Management with PM2</li></ul>' + '<br><a href="' + '/api-docs" target="_blank"> Documentation </a></div>' + 'ENVIRONMENT: <br>' + process.env.NODE_ENV + '<br>' + 'APP: <br>' + process.env.APP_HOST + ' <br> ' + process.env.APP_NAME + '(' + process.env.APP_VERSION + ')<br>' + process.env.APP_DESCRIPTION);
+  res.send('<div style="margin:50px;" ><h1>Created with Node Starter kit(' + process.env.APP_VERSION + ' | ' + env + ')</h1><br>' + '<p>There are various other node starter kit out there yet,<br> Created this one with specific dependencies Features:<p>' + '<ul><li>EcmaScript 2015 /ES6</li> <li>Unit Testing Setup with Mocha/Chai</li> <li>Commit checking with Husky and Linting with ESLint</li> <li>Logger</li> <li>Swagger</li> <li>Process Management with PM2</li></ul>' + '<br><a href="' + '/api-docs" target="_blank"> Documentation </a></div>');
 });
 
 app.listen(APP_PORT, function () {
