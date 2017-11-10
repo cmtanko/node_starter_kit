@@ -45,7 +45,8 @@ app.get('/', (req, res) => {
       app.get('host') +
       ':' +
       app.get('port') +
-      '/api-docs" target="_blank"> Documentation </a></div>'
+      '/api-docs" target="_blank"> Documentation </a></div>' +
+      JSON.stringify(process.env)
   );
 });
 
