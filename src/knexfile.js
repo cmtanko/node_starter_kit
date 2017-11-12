@@ -33,6 +33,12 @@ module.exports = {
       database: process.env.DATABASE_URL,
       password: process.env.DB_PASSWORD,
     },
+    debug: true,
+    pool: {
+      min: 2,
+      max: 50,
+      acquireTimeout: 60 * 1000,
+    },
     migrations: {
       tableName: 'knex_migrations',
     },
