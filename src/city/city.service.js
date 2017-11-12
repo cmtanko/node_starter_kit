@@ -1,62 +1,57 @@
-import db from '../db';
-import Treeize from 'treeize';
-import _ from 'lodash';
+import City from '../models/city';
+import Boom from 'boom';
 
-export function getCityList(country) {
-  let where = '';
-  if (country) {
-    where = `LOWER(ry.country) like '${country.toLowerCase()}'`;
-  }
-
-  return db('city as c')
-    .join('country as ry', 'ry.country_id', 'c.country_id')
-    .select('c.city as cities:city', 'ry.country')
-    .whereRaw(where)
-    .orderBy('c.city')
-    .then(function(rows) {
-      let tree = new Treeize();
-      tree.grow(rows);
-      let cities = tree.getData();
-
-      return cities;
+export function getCityList() {
+  return City.fetchAll({
+    columns: ['id', 'city', 'country_id'],
+    withRelated: [
+      {
+        country: function(qb) {
+          qb.column('id', 'country');
+        },
+      },
+    ],
+  })
+    .then(a => {
+      return a;
     })
-    .then();
+    .catch(e => {
+      return Boom.notFound(e);
+    });
 }
-export function getCity(id) {
-  return db('city as c')
-    .join('country as ry', 'ry.country_id', 'c.country_id')
-    .where('c.city_id', id)
-    .select('c.city as cities:city', 'ry.country')
-    .orderBy('c.city')
-    .then(function(rows) {
-      let tree = new Treeize();
-      tree.grow(rows);
-      let cities = tree.getData();
 
-      return cities;
+export function getCity(id) {
+  return City.where('id', id)
+    .fetch({
+      columns: ['id', 'city', 'country_id'],
+      withRelated: [
+        {
+          country: function(qb) {
+            qb.column('id', 'country');
+          },
+        },
+      ],
     })
-    .then();
+    .then(a => {
+      return a;
+    })
+    .catch(e => {
+      return Boom.notFound(e);
+    });
 }
 
 export function deleteCity(id) {
-  return db('city')
-    .where('city_id', id)
-    .del()
-    .then();
+  return new City({ id }).fetch().then(city => city.destroy());
 }
 
 export function addCity(city) {
-  let cityId = _.get(city, 'city_id');
-  if (cityId) {
-    return db('city')
-      .update(city, 'city_id')
-      .where('city_id', cityId)
-      .then();
-  } else {
-    return db('city')
-      .insert(city, 'city_id')
-      .then();
-  }
+  return City.forge(city)
+    .save(null)
+    .then(city => city.refresh());
+}
+
+export function updateCity(id, city) {
+  return new City({ id }).save(city).then(city => city.refresh());
 }
 
 export default {
@@ -64,4 +59,5 @@ export default {
   getCity,
   deleteCity,
   addCity,
+  updateCity,
 };

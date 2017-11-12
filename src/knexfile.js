@@ -1,3 +1,5 @@
+require('babel-register');
+
 // Update with your config settings.
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').load();
@@ -5,14 +7,19 @@ if (process.env.NODE_ENV !== 'production') {
 
 module.exports = {
   development: {
-    client: 'postgresql',
+    client: 'pg',
     connection: {
-      host: process.env.DB_HOST,
-      user: process.env.DB_USER,
-      database: process.env.DB_NAME,
-      password: process.env.DB_PASSWORD,
+      host: 'localhost',
+      user: 'postgres',
+      database: 'newUsers',
+      password: 'postgres',
     },
     debug: true,
+    pool: {
+      min: 0,
+      max: 10,
+      acquireTimeout: 60 * 1000,
+    },
     migrations: {
       tableName: 'knex_migrations',
     },

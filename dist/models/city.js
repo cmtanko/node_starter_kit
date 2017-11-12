@@ -10,6 +10,10 @@ var _db = require('../db');
 
 var _db2 = _interopRequireDefault(_db);
 
+var _country = require('./country');
+
+var _country2 = _interopRequireDefault(_country);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -18,26 +22,36 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var tblName = 'users';
+var tblName = 'city';
 
-var User = function (_bookshelf$Model) {
-  _inherits(User, _bookshelf$Model);
+var City = function (_bookshelf$Model) {
+  _inherits(City, _bookshelf$Model);
 
-  function User() {
-    _classCallCheck(this, User);
+  function City() {
+    _classCallCheck(this, City);
 
-    return _possibleConstructorReturn(this, (User.__proto__ || Object.getPrototypeOf(User)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (City.__proto__ || Object.getPrototypeOf(City)).apply(this, arguments));
   }
 
-  _createClass(User, [{
+  _createClass(City, [{
+    key: 'country',
+    value: function country() {
+      return this.hasOne(_country2.default);
+    }
+  }, {
     key: 'tableName',
     get: function get() {
       return tblName;
     }
+  }], [{
+    key: 'fetchById',
+    value: function fetchById(id) {
+      return City.where('id', id).fetch();
+    }
   }]);
 
-  return User;
+  return City;
 }(_db2.default.Model);
 
-exports.default = User;
-//# sourceMappingURL=user.js.map
+exports.default = City;
+//# sourceMappingURL=city.js.map

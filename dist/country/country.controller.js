@@ -46,7 +46,7 @@ router.get('/', function (req, res) {
  */
 
 router.get('/:id', function (req, res) {
-  _country2.default.getCountryList(req.params.id).then(function (data) {
+  _country2.default.getCountry(req.params.id).then(function (data) {
     return res.json(data);
   }).catch(function (err) {
     return res.json(err);
@@ -129,7 +129,7 @@ router.post('/', function (req, res) {
  */
 router.put('/', function (req, res) {
   var country = req.body;
-  _country2.default.addCountry(country).then(function (data) {
+  _country2.default.addCountry(country.country_id, country).then(function (data) {
     return res.json(data);
   }).catch(function (err) {
     return res.json(err);

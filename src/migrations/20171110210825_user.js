@@ -4,7 +4,7 @@ exports.up = function(knex) {
       // <country>
       .createTable('country', function(tbl) {
         // PK
-        tbl.increments('country_id');
+        tbl.increments('id');
 
         tbl
           .string('country', 20)
@@ -18,7 +18,7 @@ exports.up = function(knex) {
       // <city>
       .createTable('city', function(tbl) {
         // PK
-        tbl.increments('city_id');
+        tbl.increments('id');
 
         tbl
           .string('city', 45)
@@ -27,7 +27,7 @@ exports.up = function(knex) {
         tbl
           .integer('country_id')
           .notNullable()
-          .references('country_id')
+          .references('id')
           .inTable('country')
           .onDelete('CASCADE');
         tbl
@@ -38,7 +38,7 @@ exports.up = function(knex) {
       // <address>
       .createTable('address', function(tbl) {
         // PK
-        tbl.increments('address_id');
+        tbl.increments('id');
 
         tbl
           .string('address', 45)
@@ -50,7 +50,7 @@ exports.up = function(knex) {
         tbl
           .integer('city_id')
           .notNullable()
-          .references('city_id')
+          .references('id')
           .inTable('city')
           .onDelete('CASCADE');
         tbl.string('postal_code', 10);
@@ -66,7 +66,7 @@ exports.up = function(knex) {
       // <user>
       .createTable('user', function(tbl) {
         // PK
-        tbl.increments('user_id');
+        tbl.increments('id');
 
         tbl
           .string('first_name', 45)
@@ -80,7 +80,7 @@ exports.up = function(knex) {
         tbl
           .integer('address_id')
           .notNullable()
-          .references('address_id')
+          .references('id')
           .inTable('address')
           .onDelete('CASCADE');
         tbl
@@ -100,5 +100,9 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  return knex.schema.dropTableIfExists('user');
+  return knex.schema
+    .dropTableIfExists('country')
+    .dropTableIfExists('city')
+    .dropTableIfExists('address')
+    .dropTableIfExists('user');
 };

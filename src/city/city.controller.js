@@ -93,9 +93,9 @@ router.delete('/:id', (req, res) => {
  *         description: Created
  */
 router.post('/', (req, res) => {
-  let country = req.body;
+  let city = req.body;
   cityService
-    .addCity(country)
+    .addCity(city)
     .then(data => res.json(data))
     .catch(err => res.json(err));
 });
@@ -122,9 +122,9 @@ router.post('/', (req, res) => {
  *         description: Created
  */
 router.put('/', (req, res) => {
-  let country = req.body;
+  let city = req.body;
   cityService
-    .addCity(country)
+    .updateCity(city.id, city)
     .then(data => res.json(data))
     .catch(err => res.json(err));
 });

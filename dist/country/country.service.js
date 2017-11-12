@@ -4,44 +4,58 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.getCountryList = getCountryList;
+exports.getCountry = getCountry;
 exports.deleteCountry = deleteCountry;
 exports.addCountry = addCountry;
+exports.updateCountry = updateCountry;
 
-var _db = require('../db');
+var _country = require('../models/country');
 
-var _db2 = _interopRequireDefault(_db);
+var _country2 = _interopRequireDefault(_country);
 
-var _lodash = require('lodash');
+var _boom = require('boom');
 
-var _lodash2 = _interopRequireDefault(_lodash);
+var _boom2 = _interopRequireDefault(_boom);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function getCountryList(id) {
-  var where = '';
-  if (id) {
-    where = 'country_id = ' + id;
-  }
+function getCountryList() {
+  return _country2.default.fetchAll();
+}
 
-  return (0, _db2.default)('country').select('country_id', 'country').whereRaw(where).orderBy('country').then();
+function getCountry(id) {
+  return new _country2.default({ id: id }).fetch().then(function (country) {
+    if (!country) {
+      throw new _boom2.default.notFound('Country not found');
+    }
+
+    return country;
+  });
 }
 
 function deleteCountry(id) {
-  return (0, _db2.default)('country').where('country_id', id).del().then();
+  return new _country2.default({ id: id }).fetch().then(function (country) {
+    country.destroy();
+  });
 }
 
 function addCountry(country) {
-  var countryId = _lodash2.default.get(country, 'country_id');
-  if (!countryId) {
-    return (0, _db2.default)('country').insert(country, 'country_id').then();
-  } else {
-    return (0, _db2.default)('country').update(country, 'country_id').where('country_id', countryId).then();
-  }
+  return _country2.default.forge(country).save(null).then(function (country) {
+    return country.refresh();
+  });
+}
+
+function updateCountry(id, country) {
+  return new _country2.default({ id: id }).save(country).then(function (country) {
+    return country.refresh();
+  });
 }
 
 exports.default = {
   getCountryList: getCountryList,
+  getCountry: getCountry,
   deleteCountry: deleteCountry,
-  addCountry: addCountry
+  addCountry: addCountry,
+  updateCountry: updateCountry
 };
 //# sourceMappingURL=country.service.js.map

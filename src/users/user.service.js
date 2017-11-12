@@ -5,13 +5,13 @@ import _ from 'lodash';
 export function getUserList(id) {
   let where = '';
   if (id) {
-    where = `u.user_id = ${id}`;
+    where = `u.id = ${id}`;
   }
 
   return db('user as u')
-    .join('address as a', 'a.address_id', 'u.address_id')
-    .join('city as c', 'a.city_id', 'c.city_id')
-    .join('country as ry', 'ry.country_id', 'c.country_id')
+    .join('address as a', 'a.id', 'u.address_id')
+    .join('city as c', 'a.city_id', 'c.id')
+    .join('country as ry', 'ry.id', 'c.country_id')
     .whereRaw(where)
     .select(
       'u.first_name as firstname',
@@ -38,37 +38,37 @@ export function getUserList(id) {
 
 export function deleteUser(id) {
   return db('user')
-    .where('user_id', id)
+    .where('id', id)
     .del()
     .then();
 }
 
 export function addUser(user) {
-  let userId = _.get(user, 'user_id');
+  let userId = _.get(user, 'id');
   let address = user.address;
   delete user.address;
 
   return db.transaction(function(trx) {
     if (userId) {
       return trx
-        .insert(address, 'address_id')
+        .insert(address, 'id')
         .into('address')
         .then(function(ids) {
           user.address_id = ids[0];
 
           return trx
-            .update(user, 'user_id')
-            .where('user_id', userId)
+            .update(user, 'id')
+            .where('id', userId)
             .into('user');
         });
     } else {
       return trx
-        .insert(address, 'address_id')
+        .insert(address, 'id')
         .into('address')
         .then(function(ids) {
           user.address_id = ids[0];
 
-          return trx.insert(user, 'user_id').into('user');
+          return trx.insert(user, 'id').into('user');
         });
     }
   });
