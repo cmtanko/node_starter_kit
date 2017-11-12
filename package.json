@@ -5,6 +5,8 @@
   "main": "dist/api.js",
   "scripts": {
     "preinstall": "npm install pm2 -g",
+    "migrate": "knex migrate:latest",
+    "seed": "knex seed:run",
     "start": "pm2 start dist/api.js -i max --attach",
     "lint": "eslint src && npm run test",
     "codecov": "cat coverage/lcov.info | codecov",

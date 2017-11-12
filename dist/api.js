@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+require('babel-polyfill');
+
 var _cors = require('cors');
 
 var _cors2 = _interopRequireDefault(_cors);
