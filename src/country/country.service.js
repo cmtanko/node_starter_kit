@@ -1,42 +1,40 @@
-import db from '../db';
-import _ from 'lodash';
+import Country from '../models/country';
+import Boom from 'boom';
 
-export function getCountryList(id) {
-  let where = '';
-  if (id) {
-    where = `country_id = ${id}`;
-  }
+export function getCountryList() {
+  return Country.fetchAll();
+}
 
-  return db('country')
-    .select('country_id', 'country')
-    .whereRaw(where)
-    .orderBy('country')
-    .then();
+export function getCountry(id) {
+  return new Country({ id }).fetch().then(country => {
+    if (!country) {
+      throw new Boom.notFound('Country not found');
+    }
+
+    return country;
+  });
 }
 
 export function deleteCountry(id) {
-  return db('country')
-    .where('country_id', id)
-    .del()
-    .then();
+  return new Country({ id }).fetch().then(country => {
+    country.destroy();
+  });
 }
 
 export function addCountry(country) {
-  let countryId = _.get(country, 'country_id');
-  if (!countryId) {
-    return db('country')
-      .insert(country, 'country_id')
-      .then();
-  } else {
-    return db('country')
-      .update(country, 'country_id')
-      .where('country_id', countryId)
-      .then();
-  }
+  return Country.forge(country)
+    .save(null)
+    .then(country => country.refresh());
+}
+
+export function updateCountry(id, country) {
+  return new Country({ id }).save(country).then(country => country.refresh());
 }
 
 export default {
   getCountryList,
+  getCountry,
   deleteCountry,
   addCountry,
+  updateCountry,
 };

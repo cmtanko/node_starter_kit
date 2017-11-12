@@ -1,4 +1,6 @@
 import { development as cfg } from './knexfile';
-import knex from 'knex';
+import knexJs from 'knex';
 
-module.exports = knex(cfg);
+const db = knexJs(cfg);
+
+export default db;

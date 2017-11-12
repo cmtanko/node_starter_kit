@@ -35,7 +35,7 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
   countryService
-    .getCountryList(req.params.id)
+    .getCountry(req.params.id)
     .then(data => res.json(data))
     .catch(err => res.json(err));
 });
@@ -115,7 +115,7 @@ router.post('/', (req, res) => {
 router.put('/', (req, res) => {
   let country = req.body;
   countryService
-    .addCountry(country)
+    .updateCountry(country.id, country)
     .then(data => res.json(data))
     .catch(err => res.json(err));
 });
