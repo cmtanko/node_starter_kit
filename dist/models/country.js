@@ -6,9 +6,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _db = require('../db');
+var _bookshelf = require('../bookshelf');
 
-var _db2 = _interopRequireDefault(_db);
+var _bookshelf2 = _interopRequireDefault(_bookshelf);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -37,7 +37,7 @@ var Country = function (_bookshelf$Model) {
   }]);
 
   return Country;
-}(_db2.default.Model);
+}(_bookshelf2.default.Model);
 
 exports.default = Country;
 //# sourceMappingURL=country.js.map

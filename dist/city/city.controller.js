@@ -110,8 +110,8 @@ router.delete('/:id', function (req, res) {
  *         description: Created
  */
 router.post('/', function (req, res) {
-  var country = req.body;
-  _city2.default.addCity(country).then(function (data) {
+  var city = req.body;
+  _city2.default.addCity(city).then(function (data) {
     return res.json(data);
   }).catch(function (err) {
     return res.json(err);
@@ -140,8 +140,8 @@ router.post('/', function (req, res) {
  *         description: Created
  */
 router.put('/', function (req, res) {
-  var country = req.body;
-  _city2.default.addCity(country).then(function (data) {
+  var city = req.body;
+  _city2.default.updateCity(city.id, city).then(function (data) {
     return res.json(data);
   }).catch(function (err) {
     return res.json(err);

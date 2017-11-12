@@ -129,7 +129,7 @@ router.post('/', function (req, res) {
  */
 router.put('/', function (req, res) {
   var country = req.body;
-  _country2.default.addCountry(country.country_id, country).then(function (data) {
+  _country2.default.updateCountry(country.id, country).then(function (data) {
     return res.json(data);
   }).catch(function (err) {
     return res.json(err);

@@ -8,20 +8,20 @@ var _bookshelf = require('../bookshelf');
 
 var _bookshelf2 = _interopRequireDefault(_bookshelf);
 
-var _country = require('./country');
+var _city = require('./city');
 
-var _country2 = _interopRequireDefault(_country);
+var _city2 = _interopRequireDefault(_city);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var tblName = 'city';
+var tblName = 'address';
 
-var City = _bookshelf2.default.Model.extend({
+var Address = _bookshelf2.default.Model.extend({
   tableName: tblName,
-  country: function country() {
-    return this.belongsTo(_country2.default);
+  city: function city() {
+    return this.belongsTo(_city2.default);
   }
 });
 
-exports.default = City;
-//# sourceMappingURL=city.js.map
+exports.default = Address;
+//# sourceMappingURL=address.js.map

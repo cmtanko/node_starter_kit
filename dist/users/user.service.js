@@ -24,10 +24,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function getUserList(id) {
   var where = '';
   if (id) {
-    where = 'u.user_id = ' + id;
+    where = 'u.id = ' + id;
   }
 
-  return (0, _db2.default)('user as u').join('address as a', 'a.address_id', 'u.address_id').join('city as c', 'a.city_id', 'c.city_id').join('country as ry', 'ry.country_id', 'c.country_id').whereRaw(where).select('u.first_name as firstname', 'u.last_name as lastname', 'u.email as email', 'u.activebool as active', 'a.address as address:address1', 'a.address2 as address:address2', 'a.district as address:district', 'c.city as address:city', 'ry.country as address:country', 'a.phone as address:phone', 'a.postal_code as address:postal_code').then(function (rows) {
+  return (0, _db2.default)('user as u').join('address as a', 'a.id', 'u.address_id').join('city as c', 'a.city_id', 'c.id').join('country as ry', 'ry.id', 'c.country_id').whereRaw(where).select('u.first_name as firstname', 'u.last_name as lastname', 'u.email as email', 'u.activebool as active', 'a.address as address:address1', 'a.address2 as address:address2', 'a.district as address:district', 'c.city as address:city', 'ry.country as address:country', 'a.phone as address:phone', 'a.postal_code as address:postal_code').then(function (rows) {
     var tree = new _treeize2.default();
     tree.grow(rows);
     var address = tree.getData();
@@ -37,26 +37,26 @@ function getUserList(id) {
 }
 
 function deleteUser(id) {
-  return (0, _db2.default)('user').where('user_id', id).del().then();
+  return (0, _db2.default)('user').where('id', id).del().then();
 }
 
 function addUser(user) {
-  var userId = _lodash2.default.get(user, 'user_id');
+  var userId = _lodash2.default.get(user, 'id');
   var address = user.address;
   delete user.address;
 
   return _db2.default.transaction(function (trx) {
     if (userId) {
-      return trx.insert(address, 'address_id').into('address').then(function (ids) {
+      return trx.insert(address, 'id').into('address').then(function (ids) {
         user.address_id = ids[0];
 
-        return trx.update(user, 'user_id').where('user_id', userId).into('user');
+        return trx.update(user, 'id').where('id', userId).into('user');
       });
     } else {
-      return trx.insert(address, 'address_id').into('address').then(function (ids) {
+      return trx.insert(address, 'id').into('address').then(function (ids) {
         user.address_id = ids[0];
 
-        return trx.insert(user, 'user_id').into('user');
+        return trx.insert(user, 'id').into('user');
       });
     }
   });

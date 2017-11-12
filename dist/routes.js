@@ -38,7 +38,7 @@ var router = (0, _express.Router)();
  *         $ref: '#/definitions/Address'
   *   UserPut:
  *     properties:
- *       user_id:
+ *       id:
  *         type: integer
  *       first_name:
  *         type: string
@@ -73,7 +73,7 @@ var router = (0, _express.Router)();
  *         type: integer
  *   CityPut:
  *     properties:
- *       city_id:
+ *       id:
  *         type: integer
  *       city:
  *         type: string
@@ -85,7 +85,7 @@ var router = (0, _express.Router)();
  *         type: string
  *   CountryPut:
  *     properties:
- *       country_id:
+ *       id:
  *         type: integer
  *       country:
  *         type: string
