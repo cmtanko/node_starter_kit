@@ -1,18 +1,8 @@
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _country = require('./country.service');
-
-var _country2 = _interopRequireDefault(_country);
-
-var _express = require('express');
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var router = (0, _express.Router)();
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var express_1 = require("express");
+var country_service_1 = require("./country.service");
+var router = express_1.Router();
 /**
  * @swagger
  * /countries:
@@ -22,15 +12,13 @@ var router = (0, _express.Router)();
  *       - Countries
  */
 router.get('/', function (req, res) {
-  _country2.default.getCountryList().then(function (data) {
-    return res.json(data);
-  }).catch(function (err) {
-    return res.json(err);
-  });
+    country_service_1.default
+        .getCountryList(req.params.id)
+        .then(function (data) { return res.json(data); })
+        .catch(function (err) { return res.json(err); });
 });
-
 /**
- * 
+ *
  * @swagger
  * /countries/{country_id}:
  *   get:
@@ -44,17 +32,14 @@ router.get('/', function (req, res) {
  *         type: integer
  *         required: true
  */
-
 router.get('/:id', function (req, res) {
-  _country2.default.getCountry(req.params.id).then(function (data) {
-    return res.json(data);
-  }).catch(function (err) {
-    return res.json(err);
-  });
+    country_service_1.default
+        .getCountryList(req.params.id)
+        .then(function (data) { return res.json(data); })
+        .catch(function (err) { return res.json(err); });
 });
-
 /**
- * 
+ *
  * @swagger
  * /countries/{country_id}:
  *   delete:
@@ -69,15 +54,13 @@ router.get('/:id', function (req, res) {
  *         required: true
  */
 router.delete('/:id', function (req, res) {
-  _country2.default.deleteCountry(req.params.id).then(function (data) {
-    return res.json(data);
-  }).catch(function (err) {
-    return res.json(err);
-  });
+    country_service_1.default
+        .deleteCountry(req.params.id)
+        .then(function (data) { return res.json(data); })
+        .catch(function (err) { return res.json(err); });
 });
-
 /**
- * 
+ *
  * @swagger
  * /countries:
  *   post:
@@ -98,16 +81,14 @@ router.delete('/:id', function (req, res) {
  *         description: Created
  */
 router.post('/', function (req, res) {
-  var country = req.body;
-  _country2.default.addCountry(country).then(function (data) {
-    return res.json(data);
-  }).catch(function (err) {
-    return res.json(err);
-  });
+    var country = req.body;
+    country_service_1.default
+        .addCountry(country)
+        .then(function (data) { return res.json(data); })
+        .catch(function (err) { return res.json(err); });
 });
-
 /**
- * 
+ *
  * @swagger
  * /countries:
  *   put:
@@ -128,13 +109,11 @@ router.post('/', function (req, res) {
  *         description: Created
  */
 router.put('/', function (req, res) {
-  var country = req.body;
-  _country2.default.updateCountry(country.id, country).then(function (data) {
-    return res.json(data);
-  }).catch(function (err) {
-    return res.json(err);
-  });
+    var country = req.body;
+    country_service_1.default
+        .addCountry(country)
+        .then(function (data) { return res.json(data); })
+        .catch(function (err) { return res.json(err); });
 });
-
 exports.default = router;
 //# sourceMappingURL=country.controller.js.map

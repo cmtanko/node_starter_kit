@@ -1,46 +1,49 @@
-'use strict';
-
+"use strict";
 // Update with your config settings.
 if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').load();
+    require('dotenv').load();
 }
-
 module.exports = {
-  development: {
-    client: 'pg',
-    connection: {
-      host: 'localhost',
-      user: 'postgres',
-      database: 'newUsers',
-      password: 'postgres'
+    development: {
+        client: 'pg',
+        connection: {
+            host: 'localhost',
+            user: 'postgres',
+            database: 'newUsers',
+            password: 'postgres',
+        },
+        debug: true,
+        pool: {
+            min: 0,
+            max: 10,
+            acquireTimeout: 60 * 1000,
+        },
+        migrations: {
+            tableName: 'knex_migrations',
+        },
+        seeds: {
+            directory: './seeds',
+        },
     },
-    debug: true,
-    pool: {
-      min: 0,
-      max: 10,
-      acquireTimeout: 60 * 1000
+    production: {
+        client: 'postgresql',
+        connection: {
+            user: process.env.DB_USER,
+            database: process.env.DATABASE_URL,
+            password: process.env.DB_PASSWORD,
+        },
+        debug: true,
+        pool: {
+            min: 2,
+            max: 50,
+            acquireTimeout: 60 * 1000,
+        },
+        migrations: {
+            tableName: 'knex_migrations',
+        },
+        seeds: {
+            directory: './seeds',
+        },
     },
-    migrations: {
-      tableName: 'knex_migrations'
-    },
-    seeds: {
-      directory: './seeds'
-    }
-  },
-
-  production: {
-    client: 'postgresql',
-    connection: {
-      user: process.env.DB_USER,
-      database: process.env.DATABASE_URL,
-      password: process.env.DB_PASSWORD
-    },
-    migrations: {
-      tableName: 'knex_migrations'
-    },
-    seeds: {
-      directory: './seeds'
-    }
-  }
 };
 //# sourceMappingURL=knexfile.js.map

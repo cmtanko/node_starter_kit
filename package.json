@@ -5,14 +5,15 @@
   "main": "dist/api.js",
   "scripts": {
     "preinstall": "npm install pm2 -g",
-    "migrate": "knex migrate:latest --knexfile=src/",
-    "seed": "knex seed:run",
+    "migrate": "knex migrate:latest --knexfile=dist/knexfile.js",
+    "seed": "knex seed:run --knexfile=dist/knexfile.js",
+    "compile": "./node_modules/.bin/tsc",
     "start": "pm2 start dist/api.js -i max --attach",
     "lint": "eslint src && npm run test",
     "codecov": "cat coverage/lcov.info | codecov",
     "precommit": "npm run lint --silent",
     "build": "babel -d ./dist ./src -s",
-    "dev": "nodemon src/api.js --exec babel-node src/api.js",
+    "dev": "nodemon --exec ./node_modules/.bin/ts-node -- src/api.ts",
     "stop": "pm2 stop api",
     "test": "npm run coverage",
     "coverage": "istanbul cover node_modules/mocha/bin/_mocha --reporter lcovonly -- test/**/*"
@@ -24,6 +25,7 @@
   "author": "Suchan Badyakar",
   "license": "ISC",
   "dependencies": {
+    "@types/swagger-jsdoc": "0.0.2",
     "axios": "^0.16.2",
     "babel-polyfill": "^6.26.0",
     "babel-register": "^6.26.0",
@@ -51,6 +53,19 @@
     "winston-daily-rotate-file": "^1.4.6"
   },
   "devDependencies": {
+    "@types/bluebird": "^3.5.18",
+    "@types/body-parser": "^1.16.8",
+    "@types/bookshelf": "^0.9.7",
+    "@types/boom": "^4.3.8",
+    "@types/cors": "^2.8.3",
+    "@types/express": "^4.0.39",
+    "@types/helmet": "0.0.37",
+    "@types/knex": "0.0.64",
+    "@types/lodash": "^4.14.85",
+    "@types/morgan": "^1.7.35",
+    "@types/node": "^8.0.51",
+    "@types/swagger-jsdoc": "0.0.2",
+    "@types/winston": "^2.3.7",
     "babel": "^6.23.0",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^7.2.3",
@@ -71,7 +86,9 @@
     "istanbul": "^0.4.5",
     "lint-staged": "^4.0.3",
     "nodemon": "^1.11.0",
-    "prettier": "^1.6.1"
+    "prettier": "^1.6.1",
+    "ts-node": "^3.3.0",
+    "typescript": "^2.6.1"
   },
   "bugs": {
     "url": "https://github.com/cmtanko/node_starter_kit/issues"

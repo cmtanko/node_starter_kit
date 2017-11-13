@@ -1,26 +1,10 @@
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _express = require('express');
-
-var _user = require('./users/user.controller');
-
-var _user2 = _interopRequireDefault(_user);
-
-var _country = require('./country/country.controller');
-
-var _country2 = _interopRequireDefault(_country);
-
-var _city = require('./city/city.controller');
-
-var _city2 = _interopRequireDefault(_city);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var router = (0, _express.Router)();
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var express_1 = require("express");
+var user_controller_1 = require("./users/user.controller");
+var country_controller_1 = require("./country/country.controller");
+var city_controller_1 = require("./city/city.controller");
+var router = express_1.Router();
 /**
  * @swagger
  * definitions:
@@ -90,12 +74,8 @@ var router = (0, _express.Router)();
  *       country:
  *         type: string
  */
-
-router.use('/users', _user2.default);
-
-router.use('/countries', _country2.default);
-
-router.use('/cities', _city2.default);
-
+router.use('/users', user_controller_1.default);
+router.use('/countries', country_controller_1.default);
+router.use('/cities', city_controller_1.default);
 exports.default = router;
 //# sourceMappingURL=routes.js.map
