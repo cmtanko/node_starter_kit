@@ -1,5 +1,5 @@
+import * as bookshelfJs from 'bookshelf';
 import knex from './db';
-import bookshelfJs from 'bookshelf';
 const bookshelf = bookshelfJs(knex);
 
 bookshelf.plugin('bookshelf-manager');

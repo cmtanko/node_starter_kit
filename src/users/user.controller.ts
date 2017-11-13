@@ -1,41 +1,40 @@
-import countryService from './country.service';
-import { Router } from 'express';
+import userService from './user.service';
+import { Router, Request, Response } from 'express';
 
 const router = Router();
 /**
+ * 
  * @swagger
- * /countries:
+ * /users:
  *   get:
- *     summary: List all countries
+ *     summary: Get user list
  *     tags:
- *       - Countries
+ *       - Users
  */
-router.get('/', (req, res) => {
-  countryService
-    .getCountryList()
+router.get('/', (req: Request, res: Response) => {
+  userService
+    .getUserList(req.params.id)
     .then(data => res.json(data))
     .catch(err => res.json(err));
 });
-
 /**
  * 
  * @swagger
- * /countries/{country_id}:
+ * /users/{user_id}:
  *   get:
- *     summary: Get country by country_id
+ *     summary: Get user by user_id
  *     tags:
- *       - Countries
+ *       - Users
  *     parameters:
- *       - name: country_id
- *         description: 'get by country_id id'
+ *       - name: user_id
+ *         description: 'get by user id'
  *         in: path
  *         type: integer
  *         required: true
  */
-
-router.get('/:id', (req, res) => {
-  countryService
-    .getCountry(req.params.id)
+router.get('/:id', (req: Request, res: Response) => {
+  userService
+    .getUserList(req.params.id)
     .then(data => res.json(data))
     .catch(err => res.json(err));
 });
@@ -43,21 +42,21 @@ router.get('/:id', (req, res) => {
 /**
  * 
  * @swagger
- * /countries/{country_id}:
+ * /users/{user_id}:
  *   delete:
- *     summary: Delete country by id
+ *     summary: Delete user by id
  *     tags:
- *       - Countries
+ *       - Users
  *     parameters:
- *       - name: country_id
- *         description: 'country_id'
+ *       - name: user_id
+ *         description: 'user id'
  *         in: path
  *         type: integer
  *         required: true
  */
 router.delete('/:id', (req, res) => {
-  countryService
-    .deleteCountry(req.params.id)
+  userService
+    .deleteUser(req.params.id)
     .then(data => res.json(data))
     .catch(err => res.json(err));
 });
@@ -65,28 +64,28 @@ router.delete('/:id', (req, res) => {
 /**
  * 
  * @swagger
- * /countries:
+ * /users:
  *   post:
- *     summary: Add country
+ *     summary: Add user
  *     tags:
- *       - Countries
+ *       - Users
  *     consumes:
  *       - application/json
  *     parameters:
  *       - in : body
- *         name: country
- *         description: 'Add country'
+ *         name: user
+ *         description: 'Add use'
  *         required: true
  *         schema:
- *           $ref: '#/definitions/Country'
+ *           $ref: '#/definitions/User'
  *     responses:
  *       201:
  *         description: Created
  */
 router.post('/', (req, res) => {
-  let country = req.body;
-  countryService
-    .addCountry(country)
+  let user = req.body;
+  userService
+    .addUser(user)
     .then(data => res.json(data))
     .catch(err => res.json(err));
 });
@@ -94,30 +93,29 @@ router.post('/', (req, res) => {
 /**
  * 
  * @swagger
- * /countries:
+ * /users:
  *   put:
- *     summary: Update country
+ *     summary: Update user
  *     tags:
- *       - Countries
+ *       - Users
  *     consumes:
  *       - application/json
  *     parameters:
  *       - in : body
- *         name: country
- *         description: 'Update country'
+ *         name: user
+ *         description: 'Update use'
  *         required: true
  *         schema:
- *           $ref: '#/definitions/CountryPut'
+ *           $ref: '#/definitions/UserPut'
  *     responses:
  *       201:
  *         description: Created
  */
 router.put('/', (req, res) => {
-  let country = req.body;
-  countryService
-    .updateCountry(country.id, country)
+  let user = req.body;
+  userService
+    .addUser(user)
     .then(data => res.json(data))
     .catch(err => res.json(err));
 });
-
 export default router;

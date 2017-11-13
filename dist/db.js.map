@@ -1,1 +1,1 @@
-{"version":3,"sources":["../src/db.js"],"names":["db"],"mappings":";;;;;;AAAA;;AACA;;;;;;AAEA,IAAMA,KAAK,0CAAX;;kBAEeA,E","file":"db.js","sourcesContent":["import { development as cfg } from './knexfile';\nimport knexJs from 'knex';\n\nconst db = knexJs(cfg);\n\nexport default db;\n"]}
+{"version":3,"file":"db.js","sourceRoot":"","sources":["../src/db.ts"],"names":[],"mappings":";;AAAA,6BAA+B;AAC/B,gCAAmC;AAEnC,IAAM,EAAE,GAAG,MAAM,CAAC,GAAG,CAAC,WAAW,CAAC,CAAC;AAEnC,kBAAe,EAAE,CAAC"}

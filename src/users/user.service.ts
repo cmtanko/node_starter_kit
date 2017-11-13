@@ -1,8 +1,14 @@
 import db from '../db';
-import Treeize from 'treeize';
-import _ from 'lodash';
+// import Treeize = require('treeize');
+import * as _ from 'lodash';
+import UserInformation from '../domain/responses/UserInformation';
+import SuccessResponse from '../domain/responses/Success';
+import * as Promise from 'bluebird';
+global.Promise = require('bluebird');
 
-export function getUserList(id) {
+export function getUserList(
+  id: number
+): Promise<SuccessResponse<UserInformation>> {
   let where = '';
   if (id) {
     where = `u.id = ${id}`;
@@ -26,25 +32,18 @@ export function getUserList(id) {
       'a.phone as address:phone',
       'a.postal_code as address:postal_code'
     )
-    .then(function(rows) {
-      let tree = new Treeize();
-      tree.grow(rows);
-      let address = tree.getData();
-
-      return address;
-    })
     .then();
 }
 
-export function deleteUser(id) {
+export function deleteUser(id: number): Promise<object> {
   return db('user')
     .where('id', id)
     .del()
     .then();
 }
 
-export function addUser(user) {
-  let userId = _.get(user, 'id');
+export function addUser(user: UserInformation): Promise<object> {
+  let userId:number = _.get(user, 'id');
   let address = user.address;
   delete user.address;
 

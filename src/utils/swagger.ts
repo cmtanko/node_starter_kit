@@ -1,5 +1,5 @@
-import path from 'path';
-import swaggerJSDoc from 'swagger-jsdoc';
+import * as path from 'path';
+import swaggerJSDoc = require('swagger-jsdoc')
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').load();
 }

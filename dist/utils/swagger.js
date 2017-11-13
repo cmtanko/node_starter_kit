@@ -1,44 +1,24 @@
 'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _path = require('path');
-
-var _path2 = _interopRequireDefault(_path);
-
-var _swaggerJsdoc = require('swagger-jsdoc');
-
-var _swaggerJsdoc2 = _interopRequireDefault(_swaggerJsdoc);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+Object.defineProperty(exports, '__esModule', { value: true });
+let path = require('path');
+let swaggerJSDoc = require('swagger-jsdoc');
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').load();
 }
-
-// swagger definition
-var swaggerDefinition = {
+let swaggerDefinition = {
   info: {
     title: process.env.APP_NAME,
     version: process.env.APP_VERSION,
-    description: process.env.APP_DESCRIPTION
+    description: process.env.APP_DESCRIPTION,
   },
   host: process.env.SWAGGER_HOST,
-  basePath: process.env.BASE_PATH
+  basePath: process.env.BASE_PATH,
 };
-
-// options for the swagger docs
-var options = {
-  // import swaggerDefinitions
+let options = {
   swaggerDefinition: swaggerDefinition,
-  // path to the API docs
-  apis: [_path2.default.join(__dirname, '../**/*.js'), _path2.default.join(__dirname, '../*.js')]
+  apis: [path.join(__dirname, '../**/*.js'), path.join(__dirname, '../*.js')],
 };
-
-// initialize swagger-jsdoc
-var swaggerSpec = (0, _swaggerJsdoc2.default)(options);
-
+let swaggerSpec = swaggerJSDoc(options);
 exports.default = swaggerSpec;
-//# sourceMappingURL=swagger.js.map
+// # sourceMappingURL=swagger.js.map
+

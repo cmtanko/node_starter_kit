@@ -1,5 +1,5 @@
-import fs from 'fs';
-import winston from 'winston';
+import * as fs from 'fs';
+import * as winston from 'winston';
 import 'winston-daily-rotate-file';
 
 const tsFormat = () => new Date().toISOString();

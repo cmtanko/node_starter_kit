@@ -1,61 +1,45 @@
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.getCountryList = getCountryList;
-exports.getCountry = getCountry;
-exports.deleteCountry = deleteCountry;
-exports.addCountry = addCountry;
-exports.updateCountry = updateCountry;
-
-var _country = require('../models/country');
-
-var _country2 = _interopRequireDefault(_country);
-
-var _boom = require('boom');
-
-var _boom2 = _interopRequireDefault(_boom);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function getCountryList() {
-  return _country2.default.fetchAll();
-}
-
-function getCountry(id) {
-  return new _country2.default({ id: id }).fetch().then(function (country) {
-    if (!country) {
-      throw new _boom2.default.notFound('Country not found');
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var db_1 = require("../db");
+var _ = require("lodash");
+global.Promise = require('bluebird');
+function getCountryList(id) {
+    var where = '';
+    if (id) {
+        where = "id = " + id;
     }
-
-    return country;
-  });
+    return db_1.default('country')
+        .select('id', 'country')
+        .whereRaw(where)
+        .orderBy('country')
+        .then();
 }
-
+exports.getCountryList = getCountryList;
 function deleteCountry(id) {
-  return new _country2.default({ id: id }).fetch().then(function (country) {
-    country.destroy();
-  });
+    return db_1.default('country')
+        .where('id', id)
+        .del()
+        .then();
 }
-
+exports.deleteCountry = deleteCountry;
 function addCountry(country) {
-  return _country2.default.forge(country).save(null).then(function (country) {
-    return country.refresh();
-  });
+    var countryId = _.get(country, 'id');
+    if (!countryId) {
+        return db_1.default('country')
+            .insert(country, 'id')
+            .then();
+    }
+    else {
+        return db_1.default('country')
+            .update(country, 'id')
+            .where('id', countryId)
+            .then();
+    }
 }
-
-function updateCountry(id, country) {
-  return new _country2.default({ id: id }).save(country).then(function (country) {
-    return country.refresh();
-  });
-}
-
+exports.addCountry = addCountry;
 exports.default = {
-  getCountryList: getCountryList,
-  getCountry: getCountry,
-  deleteCountry: deleteCountry,
-  addCountry: addCountry,
-  updateCountry: updateCountry
+    getCountryList: getCountryList,
+    deleteCountry: deleteCountry,
+    addCountry: addCountry,
 };
 //# sourceMappingURL=country.service.js.map

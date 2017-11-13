@@ -1,27 +1,13 @@
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _bookshelf = require('../bookshelf');
-
-var _bookshelf2 = _interopRequireDefault(_bookshelf);
-
-var _address = require('./address');
-
-var _address2 = _interopRequireDefault(_address);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var bookshelf_1 = require("../bookshelf");
+var address_1 = require("./address");
 var tblName = 'user';
-
-var User = _bookshelf2.default.Model.extend({
-  tableName: tblName,
-  address: function address() {
-    return this.belongsTo(_address2.default);
-  }
+var User = bookshelf_1.default.Model.extend({
+    tableName: tblName,
+    address: function () {
+        return this.belongsTo(address_1.default);
+    },
 });
-
 exports.default = User;
 //# sourceMappingURL=user.js.map

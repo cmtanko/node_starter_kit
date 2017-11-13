@@ -1,6 +1,6 @@
-import cityService from './city.service';
+import * as _ from 'lodash';
 import { Router } from 'express';
-import _ from 'lodash';
+import cityService from './city.service';
 
 const router = Router();
 
@@ -93,9 +93,9 @@ router.delete('/:id', (req, res) => {
  *         description: Created
  */
 router.post('/', (req, res) => {
-  let city = req.body;
+  let country = req.body;
   cityService
-    .addCity(city)
+    .addCity(country)
     .then(data => res.json(data))
     .catch(err => res.json(err));
 });
@@ -122,9 +122,9 @@ router.post('/', (req, res) => {
  *         description: Created
  */
 router.put('/', (req, res) => {
-  let city = req.body;
+  let country = req.body;
   cityService
-    .updateCity(city.id, city)
+    .addCity(country)
     .then(data => res.json(data))
     .catch(err => res.json(err));
 });

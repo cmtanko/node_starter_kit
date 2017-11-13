@@ -1,19 +1,19 @@
 import 'babel-polyfill';
 
-import cors from 'cors';
-import path from 'path';
-import helmet from 'helmet';
-import morgan from 'morgan';
+import * as cors from 'cors';
+import * as path from 'path';
+import * as helmet from 'helmet';
+import * as morgan from 'morgan';
+import * as express from 'express';
+import * as bodyParser from 'body-parser';
+
 import routes from './routes';
-import express from 'express';
 import logger from './utils/logger';
-import bodyParser from 'body-parser';
 import swaggerSpec from './utils/swagger';
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').load();
 }
-
 const app = express();
 const APP_PORT = process.env.PORT || 3000;
 const APP_HOST = process.env.APP_HOST || 'localhost';
@@ -34,6 +34,7 @@ app.use('/api', routes);
 // serve swagger
 app.get('/swagger.json', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
+  console.log(swaggerSpec);
   res.send(swaggerSpec);
 });
 
