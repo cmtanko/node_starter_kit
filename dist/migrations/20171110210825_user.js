@@ -1,7 +1,9 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.up = function (knex) {
     return (knex.schema
         .createTable('country', function (tbl) {
+        // PK
         tbl.increments('id');
         tbl
             .string('country', 20)
@@ -13,6 +15,7 @@ exports.up = function (knex) {
             .defaultTo(knex.raw('now()'));
     })
         .createTable('city', function (tbl) {
+        // PK
         tbl.increments('id');
         tbl
             .string('city', 45)
@@ -30,6 +33,7 @@ exports.up = function (knex) {
             .defaultTo(knex.raw('now()'));
     })
         .createTable('address', function (tbl) {
+        // PK
         tbl.increments('id');
         tbl
             .string('address', 45)
@@ -55,6 +59,7 @@ exports.up = function (knex) {
             .defaultTo(knex.raw('now()'));
     })
         .createTable('user', function (tbl) {
+        // PK
         tbl.increments('id');
         tbl
             .string('first_name', 45)

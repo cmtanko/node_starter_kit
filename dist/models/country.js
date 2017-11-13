@@ -12,7 +12,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var bookshelf_1 = require("../bookshelf");
 var tblName = 'country';
-var Country = (function (_super) {
+var Country = /** @class */ (function (_super) {
     __extends(Country, _super);
     function Country() {
         return _super !== null && _super.apply(this, arguments) || this;

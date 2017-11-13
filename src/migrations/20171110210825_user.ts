@@ -1,4 +1,6 @@
-exports.up = function(knex) {
+import * as Knex from 'knex';
+
+exports.up = function(knex:Knex) {
   return (
     knex.schema
       // <country>
@@ -99,7 +101,7 @@ exports.up = function(knex) {
   );
 };
 
-exports.down = function(knex) {
+exports.down = function(knex:Knex) {
   return knex.schema
     .dropTableIfExists('country')
     .dropTableIfExists('city')

@@ -1,4 +1,6 @@
-exports.seed = function(knex) {
+import * as Knex from 'knex'
+
+exports.seed = function(knex:Knex) {
   let tblName = 'address';
 
   let rows = [

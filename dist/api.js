@@ -27,6 +27,7 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '/../public')));
 app.use('/api', routes_1.default);
+// serve swagger
 app.get('/swagger.json', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     console.log(swagger_1.default);

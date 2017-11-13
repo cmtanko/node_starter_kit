@@ -1,4 +1,5 @@
 "use strict";
+// Update with your config settings.
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').load();
 }

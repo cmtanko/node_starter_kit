@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var db_1 = require("../db");
+// import Treeize = require('treeize');
 var _ = require("lodash");
 global.Promise = require('bluebird');
 function getUserList(id) {
