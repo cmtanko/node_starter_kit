@@ -12,7 +12,7 @@ module.exports = {
             database: 'newUsers',
             password: 'postgres',
         },
-        debug: true,
+        debug: false,
         pool: {
             min: 0,
             max: 10,

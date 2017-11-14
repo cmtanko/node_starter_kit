@@ -14,8 +14,8 @@ var router = express_1.Router();
 router.get('/', function (req, res) {
     country_service_1.default
         .getCountryList(req.params.id)
-        .then(function (data) { return res.json(data); })
-        .catch(function (err) { return res.json(err); });
+        .then(function (data) { return res.status(200).json(data); })
+        .catch(function (err) { return res.status(err.status || 500).json(err); });
 });
 /**
  *
@@ -35,8 +35,8 @@ router.get('/', function (req, res) {
 router.get('/:id', function (req, res) {
     country_service_1.default
         .getCountryList(req.params.id)
-        .then(function (data) { return res.json(data); })
-        .catch(function (err) { return res.json(err); });
+        .then(function (data) { return res.status(200).json(data); })
+        .catch(function (err) { return res.status(err.status || 500).json(err); });
 });
 /**
  *
@@ -56,8 +56,8 @@ router.get('/:id', function (req, res) {
 router.delete('/:id', function (req, res) {
     country_service_1.default
         .deleteCountry(req.params.id)
-        .then(function (data) { return res.json(data); })
-        .catch(function (err) { return res.json(err); });
+        .then(function (data) { return res.status(204).json(data); })
+        .catch(function (err) { return res.status(err.status).json(err); });
 });
 /**
  *
@@ -82,10 +82,14 @@ router.delete('/:id', function (req, res) {
  */
 router.post('/', function (req, res) {
     var country = req.body;
+    if (!country.country) {
+        res.status(400).send('Country is not defined');
+        return;
+    }
     country_service_1.default
         .addCountry(country)
-        .then(function (data) { return res.json(data); })
-        .catch(function (err) { return res.json(err); });
+        .then(function (data) { return res.status(201).json(data); })
+        .catch(function (err) { return res.status(err.status || 500).json(err); });
 });
 /**
  *
@@ -112,8 +116,8 @@ router.put('/', function (req, res) {
     var country = req.body;
     country_service_1.default
         .addCountry(country)
-        .then(function (data) { return res.json(data); })
-        .catch(function (err) { return res.json(err); });
+        .then(function (data) { return res.status(204).json(data); })
+        .catch(function (err) { return res.status(err.status || 500).json(err); });
 });
 exports.default = router;
 //# sourceMappingURL=country.controller.js.map

@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import countryService from './country.service';
+import * as Boom from 'boom';
 
 const router = Router();
 /**
@@ -13,8 +14,8 @@ const router = Router();
 router.get('/', (req, res) => {
   countryService
     .getCountryList(req.params.id)
-    .then(data => res.json(data))
-    .catch(err => res.json(err));
+    .then(data => res.status(200).json(data))
+    .catch(err => res.status(err.status || 500).json(err));
 });
 
 /**
@@ -36,8 +37,8 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   countryService
     .getCountryList(req.params.id)
-    .then(data => res.json(data))
-    .catch(err => res.json(err));
+    .then(data => res.status(200).json(data))
+    .catch(err => res.status(err.status || 500).json(err));
 });
 
 /**
@@ -58,8 +59,8 @@ router.get('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   countryService
     .deleteCountry(req.params.id)
-    .then(data => res.json(data))
-    .catch(err => res.json(err));
+    .then(data => res.status(204).json(data))
+    .catch(err => res.status(err.status).json(err));
 });
 
 /**
@@ -85,10 +86,14 @@ router.delete('/:id', (req, res) => {
  */
 router.post('/', (req, res) => {
   let country = req.body;
+  if (!country.country) {
+    res.status(400).send('Country is not defined');
+    return;
+  }
   countryService
     .addCountry(country)
-    .then(data => res.json(data))
-    .catch(err => res.json(err));
+    .then(data => res.status(201).json(data))
+    .catch(err => res.status(err.status || 500).json(err));
 });
 
 /**
@@ -116,8 +121,8 @@ router.put('/', (req, res) => {
   let country = req.body;
   countryService
     .addCountry(country)
-    .then(data => res.json(data))
-    .catch(err => res.json(err));
+    .then(data => res.status(204).json(data))
+    .catch(err => res.status(err.status || 500).json(err));
 });
 
 export default router;
