@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import cityController from './city/city.controller';
-import userController from './users/user.controller';
-import countryController from './country/country.controller';
+import cityController from './components/city/city.controller';
+import userController from './components/users/user.controller';
+import countryController from './components/country/country.controller';
 
 const router = Router();
 /**

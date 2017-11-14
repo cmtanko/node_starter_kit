@@ -12,7 +12,7 @@ export = {
       database: 'newUsers',
       password: 'postgres',
     },
-    debug: false,
+    debug: true,
     pool: {
       min: 0,
       max: 10,

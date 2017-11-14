@@ -1,8 +1,8 @@
 import * as _ from 'lodash';
 // import Treeize from 'treeize';
-import db from '../db';
-import CityInformation from '../domain/responses/CityInformation';
-import SuccessResponse from '../domain/responses/Success';
+import db from '../../db';
+import CityInformation from '../../domain/responses/CityInformation';
+import SuccessResponse from '../../domain/responses/Success';
 import * as Promise from 'bluebird';
 
 export function getCityList(

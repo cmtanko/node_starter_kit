@@ -4,6 +4,7 @@ interface UserInformation {
   email: string;
   active: boolean;
   address_id: number;
+  address: Address;
   address1: string;
   address2: string;
   district: string;
