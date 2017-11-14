@@ -4,7 +4,6 @@ import db from '../db';
 import CityInformation from '../domain/responses/CityInformation';
 import SuccessResponse from '../domain/responses/Success';
 import * as Promise from 'bluebird';
-global.Promise = require('bluebird');
 
 export function getCityList(
   country: string

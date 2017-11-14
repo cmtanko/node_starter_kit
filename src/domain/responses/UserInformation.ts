@@ -3,7 +3,20 @@ interface UserInformation {
   lastname: string;
   email: string;
   active: boolean;
-  address_id :number,
-  address: object;
+  address_id: number;
+  address1: string;
+  address2: string;
+  district: string;
+  postal_code: string;
+  phone: string;
+  output : () => Object;
+}
+
+interface Address {
+  address1: string;
+  address2: string;
+  district: string;
+  postal_code: string;
+  phone: string;
 }
 export default UserInformation;

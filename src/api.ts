@@ -10,17 +10,20 @@ import * as bodyParser from 'body-parser';
 import routes from './routes';
 import logger from './utils/logger';
 import swaggerSpec from './utils/swagger';
+import * as Promise from 'bluebird';
+global.Promise = require('bluebird');
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').load();
 }
 const app = express();
 const APP_PORT = process.env.PORT || 3000;
-const APP_HOST = process.env.APP_HOST || 'localhost';
 const env = process.env.NODE_ENV || 'development';
+const APP_HOST = process.env.APP_HOST || 'localhost';
 
 app.set('port', APP_PORT);
 app.set('host', APP_HOST);
+
 app.locals.title = process.env.APP_NAME;
 app.locals.version = process.env.APP_VERSION;
 
@@ -29,12 +32,12 @@ app.use(helmet());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '/../public')));
+
 app.use('/api', routes);
 
 // serve swagger
 app.get('/swagger.json', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
-  console.log(swaggerSpec);
   res.send(swaggerSpec);
 });
 
