@@ -59,4 +59,4 @@ app.listen(APP_PORT, () => {
   logger.log('info', `Server started at ${app.get('host')}:${app.get('port')}`);
 });
 
-export default app;
+export default app

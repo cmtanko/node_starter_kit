@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var db_1 = require("../db");
 var _ = require("lodash");
-global.Promise = require('bluebird');
 function getCountryList(id) {
     var where = '';
     if (id) {
