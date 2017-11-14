@@ -12,7 +12,7 @@ describe('Users Controller Test', () => {
       });
   });
 
-  it('should not create a new country if name is not provided', done => {
+  it.skip('should not create a new country if name is not provided', done => {
     let country = {};
 
     request(app)
@@ -24,7 +24,7 @@ describe('Users Controller Test', () => {
       });
   });
 
-  it('should create a new country with valid data', done => {
+  it.skip('should create a new country with valid data', done => {
     let country = {
       country: 'New COuntry',
     };
@@ -38,7 +38,7 @@ describe('Users Controller Test', () => {
       });
   });
 
-  it('should get information of country', done => {
+  it.skip('should get information of country', done => {
     request(app)
       .get('/api/countries/1')
       .end((err, res) => {
@@ -47,7 +47,7 @@ describe('Users Controller Test', () => {
       });
   });
 
-  it('should respond with not found error if random country id is provided', done => {
+  it.skip('should respond with not found error if random country id is provided', done => {
     request(app)
       .get('/api/countries/11111')
       .end((err, res) => {
@@ -83,7 +83,7 @@ describe('Users Controller Test', () => {
       });
   });
 
-  it('should delete a country if valid id is provided', done => {
+  it.skip('should delete a country if valid id is provided', done => {
     request(app)
       .delete('/api/countries/1')
       .end((err, res) => {
@@ -93,7 +93,7 @@ describe('Users Controller Test', () => {
       });
   });
 
-  it('should respond with not found error if random country id is provided for deletion', done => {
+  it.skip('should respond with not found error if random country id is provided for deletion', done => {
     request(app)
       .delete('/api/countries/9999')
       .end((err, res) => {
