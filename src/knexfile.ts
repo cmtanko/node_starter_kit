@@ -12,7 +12,7 @@ export = {
       database: 'newUsers',
       password: 'postgres',
     },
-    debug: true,
+    debug: false,
     pool: {
       min: 0,
       max: 10,
@@ -29,11 +29,11 @@ export = {
   production: {
     client: 'postgresql',
     connection: {
+      host: process.env.DB_HOST,
       user: process.env.DB_USER,
-      database: process.env.DATABASE_URL,
+      database: process.env.DB_NAME,
       password: process.env.DB_PASSWORD,
     },
-    debug: true,
     pool: {
       min: 2,
       max: 50,
