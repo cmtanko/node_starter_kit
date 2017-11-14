@@ -8,7 +8,7 @@ describe('Users Controller Test', () => {
       .get('/api/countries')
       .end((err, res) => {
         expect(res.statusCode).to.be.equal(200);
-        setTimeout(done, 10000);
+        setTimeout(done, 100000);
       });
   });
 
