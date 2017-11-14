@@ -10,6 +10,7 @@ var bodyParser = require("body-parser");
 var routes_1 = require("./routes");
 var logger_1 = require("./utils/logger");
 var swagger_1 = require("./utils/swagger");
+global.Promise = require('bluebird');
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').load();
 }

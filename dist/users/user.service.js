@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var _ = require("lodash");
-global.Promise = require('bluebird');
 var db_1 = require("../db");
 function getUserList(id) {
     var where = '';

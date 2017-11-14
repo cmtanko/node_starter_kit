@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var _ = require("lodash");
 // import Treeize from 'treeize';
 var db_1 = require("../db");
-global.Promise = require('bluebird');
 function getCityList(country) {
     var where = '';
     if (country) {
