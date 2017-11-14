@@ -3,7 +3,6 @@ import * as _ from 'lodash';
 import CountryInformation from '../domain/responses/CountryInformation';
 import SuccessResponse from '../domain/responses/Success';
 import * as Promise from 'bluebird';
-global.Promise = require('bluebird');
 
 export function getCountryList(id:number) {
   let where = '';

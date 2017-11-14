@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var user_service_1 = require("./user.service");
 var express_1 = require("express");
+var user_service_1 = require("./user.service");
 var router = express_1.Router();
 /**
  *

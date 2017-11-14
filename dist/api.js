@@ -15,8 +15,8 @@ if (process.env.NODE_ENV !== 'production') {
 }
 var app = express();
 var APP_PORT = process.env.PORT || 3000;
-var APP_HOST = process.env.APP_HOST || 'localhost';
 var env = process.env.NODE_ENV || 'development';
+var APP_HOST = process.env.APP_HOST || 'localhost';
 app.set('port', APP_PORT);
 app.set('host', APP_HOST);
 app.locals.title = process.env.APP_NAME;
@@ -30,7 +30,6 @@ app.use('/api', routes_1.default);
 // serve swagger
 app.get('/swagger.json', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
-    console.log(swagger_1.default);
     res.send(swagger_1.default);
 });
 app.get('/', function (req, res) {
