@@ -15,7 +15,7 @@
     "build": "./node_modules/.bin/tsc",
     "dev": "nodemon --exec ./node_modules/.bin/ts-node -- src/api.ts",
     "test": "npm run test:coverage",
-    "test:mocha": "node_modules/mocha/bin/mocha -r babel-register test/**/**",
+    "test:mocha": "node_modules/mocha/bin/mocha --timeout 15000 -r babel-register test/**/**",
     "test:coverage": "node_modules/.bin/babel-node node_modules/.bin/babel-istanbul cover node_modules/.bin/_mocha -- test/**/**"
   },
   "repository": {
