@@ -1,6 +1,7 @@
 import * as _ from 'lodash';
 import { Router } from 'express';
 import cityService from './city.service';
+import * as Boom from 'boom';
 
 const router = Router();
 
@@ -94,6 +95,7 @@ router.delete('/:id', (req, res) => {
  */
 router.post('/', (req, res) => {
   let country = req.body;
+
   cityService
     .addCity(country)
     .then(data => res.json(data))

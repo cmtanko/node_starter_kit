@@ -29,7 +29,7 @@ app.locals.version = process.env.APP_VERSION;
 
 app.use(cors());
 app.use(helmet());
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '/../public')));
 
