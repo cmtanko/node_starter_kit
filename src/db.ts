@@ -1,7 +1,7 @@
 import * as knexJs from 'knex';
 import cfg = require('./knexfile');
 
-let db = null;
+let db:knexJs;
 if (process.env.NODE_ENV === 'production') {
   db = knexJs(cfg.production);
 } else {
