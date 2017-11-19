@@ -1,8 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var express_1 = require("express");
-var user_service_1 = require("./user.service");
-var router = express_1.Router();
+const express_1 = require("express");
+const HttpStatusCode = require("http-status-codes");
+const user_model_1 = require("./user.model");
+const address_model_1 = require("./address.model");
+const router = express_1.Router();
 /**
  *
  * @swagger
@@ -12,11 +14,16 @@ var router = express_1.Router();
  *     tags:
  *       - Users
  */
-router.get('/', function (req, res) {
-    user_service_1.default
-        .getUserList(req.params.id)
-        .then(function (data) { return res.json(data); })
-        .catch(function (err) { return res.json(err); });
+router.get('/', (req, res) => {
+    new user_model_1.default().query(qb => {
+        qb.innerJoin('address', 'address.id', 'user.address_id');
+        qb.innerJoin('city', 'city.id', 'address.city_id');
+        qb.innerJoin('country', 'country.id', 'city.country_id');
+        qb.select('user.first_name', 'user.last_name', 'user.email', 'user.activebool', 'address.address', 'address.address2', 'address.district', 'city.city', 'country.country');
+        qb.then(user => {
+            res.status(HttpStatusCode.OK).send(user);
+        });
+    });
 });
 /**
  *
@@ -33,11 +40,20 @@ router.get('/', function (req, res) {
  *         type: integer
  *         required: true
  */
-router.get('/:id', function (req, res) {
-    user_service_1.default
-        .getUserList(req.params.id)
-        .then(function (data) { return res.json(data); })
-        .catch(function (err) { return res.json(err); });
+router.get('/:id', (req, res) => {
+    let userId = req.params.id;
+    new user_model_1.default().query(qb => {
+        qb.where('user.id', '=', userId);
+        qb.innerJoin('address', 'address.id', 'user.address_id');
+        qb.innerJoin('city', 'city.id', 'address.city_id');
+        qb.innerJoin('country', 'country.id', 'city.country_id');
+        qb.select('user.first_name', 'user.last_name', 'user.email', 'user.activebool', 'address.address', 'address.address2', 'address.district', 'city.city', 'country.country');
+        qb.then(user => {
+            if (user.length === 0)
+                res.status(HttpStatusCode.NOT_FOUND).send('Not Found !');
+            res.status(HttpStatusCode.OK).send(user[0]);
+        });
+    });
 });
 /**
  *
@@ -54,11 +70,11 @@ router.get('/:id', function (req, res) {
  *         type: integer
  *         required: true
  */
-router.delete('/:id', function (req, res) {
-    user_service_1.default
-        .deleteUser(req.params.id)
-        .then(function (data) { return res.json(data); })
-        .catch(function (err) { return res.json(err); });
+router.delete('/:id', (req, res) => {
+    let userId = req.params.id;
+    new user_model_1.default({ id: userId }).destroy().then(user => {
+        res.status(HttpStatusCode.NO_CONTENT).send(user);
+    });
 });
 /**
  *
@@ -81,12 +97,16 @@ router.delete('/:id', function (req, res) {
  *       201:
  *         description: Created
  */
-router.post('/', function (req, res) {
-    var user = req.body;
-    user_service_1.default
-        .addUser(user)
-        .then(function (data) { return res.json(data); })
-        .catch(function (err) { return res.json(err); });
+router.post('/', (req, res) => {
+    let user = req.body;
+    let address = user.address;
+    delete user.address;
+    new address_model_1.default(address).save().then(resultAddress => {
+        user.address_id = resultAddress.id;
+        new user_model_1.default(user).save().then(user => {
+            res.status(HttpStatusCode.CREATED).send(user);
+        });
+    });
 });
 /**
  *
@@ -109,12 +129,16 @@ router.post('/', function (req, res) {
  *       201:
  *         description: Created
  */
-router.put('/', function (req, res) {
-    var user = req.body;
-    user_service_1.default
-        .addUser(user)
-        .then(function (data) { return res.json(data); })
-        .catch(function (err) { return res.json(err); });
+router.put('/', (req, res) => {
+    let user = req.body;
+    let address = user.address;
+    delete user.address;
+    new address_model_1.default(address).save().then(resultAddress => {
+        user.address_id = resultAddress.id;
+        new user_model_1.default(user).save().then(user => {
+            res.status(HttpStatusCode.CREATED).send(user);
+        });
+    });
 });
 exports.default = router;
 //# sourceMappingURL=user.controller.js.map

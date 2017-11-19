@@ -1,7 +1,9 @@
 import * as _ from 'lodash';
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
+import * as HttpStatusCode from 'http-status-codes';
+
+import City from './city.model';
 import cityService from './city.service';
-import * as Boom from 'boom';
 
 const router = Router();
 
@@ -21,11 +23,15 @@ const router = Router();
  */
 
 router.get('/', (req, res) => {
-  let country = _.get(req, 'query.country') || undefined;
-  cityService
-    .getCityList(country)
-    .then(data => res.json(data))
-    .catch(err => res.json(err));
+  let country = _.get(req, 'query.country') || '';
+
+  new City().query(qb => {
+    qb.innerJoin('country', 'country.id', 'city.country_id');
+    qb.select('city.id', 'country', 'city');
+    qb.where('country', 'LIKE', '%' + country + '%').then(city => {
+      res.status(HttpStatusCode.OK).send(city);
+    });
+  });
 });
 
 /**
@@ -44,10 +50,17 @@ router.get('/', (req, res) => {
  *         required: true
  */
 router.get('/:id', (req, res) => {
-  cityService
-    .getCity(req.params.id)
-    .then(data => res.json(data))
-    .catch(err => res.json(err));
+  let cityId = req.params.id;
+
+  new City().query(qb => {
+    qb.innerJoin('country', 'country.id', 'city.country_id');
+    qb.select('city.id', 'country', 'city');
+    qb.where('city.id', '=', cityId).then(city => {
+      if(city.length === 0)
+      res.status(HttpStatusCode.NOT_FOUND).send('Not Found !');
+      res.status(HttpStatusCode.OK).send(city[0]);
+    });
+  });
 });
 
 /**
@@ -66,10 +79,10 @@ router.get('/:id', (req, res) => {
  *         required: true
  */
 router.delete('/:id', (req, res) => {
-  cityService
-    .deleteCity(req.params.id)
-    .then(data => res.json(data))
-    .catch(err => res.json(err));
+  let cityId = req.params.id;
+  new City({ id: cityId }).destroy().then(city => {
+    res.status(HttpStatusCode.NO_CONTENT).send(city);
+  });
 });
 
 /**
@@ -94,12 +107,14 @@ router.delete('/:id', (req, res) => {
  *         description: Created
  */
 router.post('/', (req, res) => {
-  let country = req.body;
-
-  cityService
-    .addCity(country)
-    .then(data => res.json(data))
-    .catch(err => res.json(err));
+  let city = req.body;
+  if (!city.city) {
+    res.status(HttpStatusCode.BAD_REQUEST).send('city is not defined');
+    return;
+  }
+  new City(city).save().then(city => {
+    res.status(HttpStatusCode.CREATED).send(city);
+  });
 });
 
 /**
@@ -124,10 +139,14 @@ router.post('/', (req, res) => {
  *         description: Created
  */
 router.put('/', (req, res) => {
-  let country = req.body;
-  cityService
-    .addCity(country)
-    .then(data => res.json(data))
-    .catch(err => res.json(err));
+  let city = req.body;
+  if (!city.city) {
+    res.status(HttpStatusCode.BAD_REQUEST).send('Country is not defined');
+    return;
+  }
+  new City(city).save().then(city => {
+    res.status(HttpStatusCode.OK).send(city);
+  });
 });
+
 export default router;

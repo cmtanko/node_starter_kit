@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var express_1 = require("express");
-var city_controller_1 = require("./components/city/city.controller");
-var user_controller_1 = require("./components/users/user.controller");
-var country_controller_1 = require("./components/country/country.controller");
-var router = express_1.Router();
+const express_1 = require("express");
+const city_controller_1 = require("./components/city/city.controller");
+const user_controller_1 = require("./components/users/user.controller");
+const country_controller_1 = require("./components/country/country.controller");
+const router = express_1.Router();
 /**
  * @swagger
  * definitions:

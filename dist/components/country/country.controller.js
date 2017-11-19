@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var express_1 = require("express");
-var country_service_1 = require("./country.service");
-var router = express_1.Router();
+const express_1 = require("express");
+const HttpStatusCode = require("http-status-codes");
+const country_model_1 = require("./country.model");
+const router = express_1.Router();
 /**
  * @swagger
  * /countries:
@@ -11,11 +12,10 @@ var router = express_1.Router();
  *     tags:
  *       - Countries
  */
-router.get('/', function (req, res) {
-    country_service_1.default
-        .getCountryList(req.params.id)
-        .then(function (data) { return res.status(200).json(data); })
-        .catch(function (err) { return res.status(err.status || 500).json(err); });
+router.get('/', (req, res) => {
+    country_model_1.default.fetchAll().then(country => {
+        res.status(HttpStatusCode.OK).send(country.toJSON());
+    });
 });
 /**
  *
@@ -32,11 +32,18 @@ router.get('/', function (req, res) {
  *         type: integer
  *         required: true
  */
-router.get('/:id', function (req, res) {
-    country_service_1.default
-        .getCountryList(req.params.id)
-        .then(function (data) { return res.status(200).json(data); })
-        .catch(function (err) { return res.status(err.status || 500).json(err); });
+router.get('/:id', (req, res) => {
+    let countryId = req.params.id;
+    new country_model_1.default()
+        .where({ id: countryId })
+        .fetch()
+        .then(country => {
+        if (!country)
+            return res
+                .status(HttpStatusCode.NOT_FOUND)
+                .send('Cannot find country with the id ' + countryId);
+        res.status(HttpStatusCode.OK).send(country.toJSON());
+    });
 });
 /**
  *
@@ -53,11 +60,11 @@ router.get('/:id', function (req, res) {
  *         type: integer
  *         required: true
  */
-router.delete('/:id', function (req, res) {
-    country_service_1.default
-        .deleteCountry(req.params.id)
-        .then(function (data) { return res.status(204).json(data); })
-        .catch(function (err) { return res.status(err.status).json(err); });
+router.delete('/:id', (req, res) => {
+    let countryId = req.params.id;
+    new country_model_1.default({ id: countryId }).destroy().then(country => {
+        res.status(HttpStatusCode.CREATED).send(country);
+    });
 });
 /**
  *
@@ -80,16 +87,15 @@ router.delete('/:id', function (req, res) {
  *       201:
  *         description: Created
  */
-router.post('/', function (req, res) {
-    var country = req.body;
+router.post('/', (req, res) => {
+    let country = req.body;
     if (!country.country) {
-        res.status(400).send('Country is not defined');
+        res.status(HttpStatusCode.BAD_REQUEST).send('Country is not defined');
         return;
     }
-    country_service_1.default
-        .addCountry(country)
-        .then(function (data) { return res.status(201).json(data); })
-        .catch(function (err) { return res.status(err.status || 500).json(err); });
+    new country_model_1.default(country).save().then(country => {
+        res.status(HttpStatusCode.CREATED).send(country);
+    });
 });
 /**
  *
@@ -112,12 +118,15 @@ router.post('/', function (req, res) {
  *       201:
  *         description: Created
  */
-router.put('/', function (req, res) {
-    var country = req.body;
-    country_service_1.default
-        .addCountry(country)
-        .then(function (data) { return res.status(204).json(data); })
-        .catch(function (err) { return res.status(err.status || 500).json(err); });
+router.put('/', (req, res) => {
+    let country = req.body;
+    if (!country.country) {
+        res.status(HttpStatusCode.BAD_REQUEST).send('Country is not defined');
+        return;
+    }
+    new country_model_1.default(country).save().then(country => {
+        res.status(HttpStatusCode.OK).send(country);
+    });
 });
 exports.default = router;
 //# sourceMappingURL=country.controller.js.map

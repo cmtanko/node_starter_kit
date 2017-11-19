@@ -1,9 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var _ = require("lodash");
-var express_1 = require("express");
-var city_service_1 = require("./city.service");
-var router = express_1.Router();
+const _ = require("lodash");
+const express_1 = require("express");
+const HttpStatusCode = require("http-status-codes");
+const city_model_1 = require("./city.model");
+const router = express_1.Router();
 /**
  * @swagger
  * /cities:
@@ -18,12 +19,15 @@ var router = express_1.Router();
  *         type: string
  *         required: false
  */
-router.get('/', function (req, res) {
-    var country = _.get(req, 'query.country') || undefined;
-    city_service_1.default
-        .getCityList(country)
-        .then(function (data) { return res.json(data); })
-        .catch(function (err) { return res.json(err); });
+router.get('/', (req, res) => {
+    let country = _.get(req, 'query.country') || '';
+    new city_model_1.default().query(qb => {
+        qb.innerJoin('country', 'country.id', 'city.country_id');
+        qb.select('city.id', 'country', 'city');
+        qb.where('country', 'LIKE', '%' + country + '%').then(city => {
+            res.status(HttpStatusCode.OK).send(city);
+        });
+    });
 });
 /**
  *
@@ -40,11 +44,17 @@ router.get('/', function (req, res) {
  *         type: integer
  *         required: true
  */
-router.get('/:id', function (req, res) {
-    city_service_1.default
-        .getCity(req.params.id)
-        .then(function (data) { return res.json(data); })
-        .catch(function (err) { return res.json(err); });
+router.get('/:id', (req, res) => {
+    let cityId = req.params.id;
+    new city_model_1.default().query(qb => {
+        qb.innerJoin('country', 'country.id', 'city.country_id');
+        qb.select('city.id', 'country', 'city');
+        qb.where('city.id', '=', cityId).then(city => {
+            if (city.length === 0)
+                res.status(HttpStatusCode.NOT_FOUND).send('Not Found !');
+            res.status(HttpStatusCode.OK).send(city[0]);
+        });
+    });
 });
 /**
  *
@@ -61,11 +71,11 @@ router.get('/:id', function (req, res) {
  *         type: integer
  *         required: true
  */
-router.delete('/:id', function (req, res) {
-    city_service_1.default
-        .deleteCity(req.params.id)
-        .then(function (data) { return res.json(data); })
-        .catch(function (err) { return res.json(err); });
+router.delete('/:id', (req, res) => {
+    let cityId = req.params.id;
+    new city_model_1.default({ id: cityId }).destroy().then(city => {
+        res.status(HttpStatusCode.NO_CONTENT).send(city);
+    });
 });
 /**
  *
@@ -88,12 +98,15 @@ router.delete('/:id', function (req, res) {
  *       201:
  *         description: Created
  */
-router.post('/', function (req, res) {
-    var country = req.body;
-    city_service_1.default
-        .addCity(country)
-        .then(function (data) { return res.json(data); })
-        .catch(function (err) { return res.json(err); });
+router.post('/', (req, res) => {
+    let city = req.body;
+    if (!city.city) {
+        res.status(HttpStatusCode.BAD_REQUEST).send('city is not defined');
+        return;
+    }
+    new city_model_1.default(city).save().then(city => {
+        res.status(HttpStatusCode.CREATED).send(city);
+    });
 });
 /**
  *
@@ -116,12 +129,15 @@ router.post('/', function (req, res) {
  *       201:
  *         description: Created
  */
-router.put('/', function (req, res) {
-    var country = req.body;
-    city_service_1.default
-        .addCity(country)
-        .then(function (data) { return res.json(data); })
-        .catch(function (err) { return res.json(err); });
+router.put('/', (req, res) => {
+    let city = req.body;
+    if (!city.city) {
+        res.status(HttpStatusCode.BAD_REQUEST).send('Country is not defined');
+        return;
+    }
+    new city_model_1.default(city).save().then(city => {
+        res.status(HttpStatusCode.OK).send(city);
+    });
 });
 exports.default = router;
 //# sourceMappingURL=city.controller.js.map

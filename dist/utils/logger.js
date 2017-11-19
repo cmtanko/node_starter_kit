@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var fs = require("fs");
-var winston = require("winston");
+const fs = require("fs");
+const winston = require("winston");
 require("winston-daily-rotate-file");
-var tsFormat = function () { return new Date().toISOString(); };
-var logDir = process.env.LOGGING_DIR || 'logs';
-var logLevel = process.env.LOGGING_LEVEL || 'info';
+const tsFormat = () => new Date().toISOString();
+const logDir = process.env.LOGGING_DIR || 'logs';
+const logLevel = process.env.LOGGING_LEVEL || 'info';
 // Create log directory if it does not exist
 if (!fs.existsSync(logDir)) {
     fs.mkdirSync(logDir);
@@ -13,7 +13,7 @@ if (!fs.existsSync(logDir)) {
 /**
  * Create new winston logger instance.
  */
-var logger = new winston.Logger({
+const logger = new winston.Logger({
     transports: [
         new winston.transports.Console({
             timestamp: tsFormat,
@@ -21,7 +21,7 @@ var logger = new winston.Logger({
             level: logLevel,
         }),
         new winston.transports.DailyRotateFile({
-            filename: logDir + "/-debug.log",
+            filename: `${logDir}/-debug.log`,
             timestamp: tsFormat,
             datePattern: 'yyyy-MM-dd',
             prepend: true,
