@@ -1,4 +1,4 @@
-# Node Starter Kit [Demo Here](https://node-starter-kit-demo.herokuapp.com)
+# Node Starter Kit [Demo Here](https://node-starter-kit.herokuapp.com)
 
 [![Code Climate](https://codeclimate.com/github/cmtanko/node_starter_kit/badges/gpa.svg)](https://codeclimate.com/github/cmtanko/node_starter_kit)
 [![Build Status](https://travis-ci.org/cmtanko/node_starter_kit.svg?branch=master)](https://travis-ci.org/cmtanko/node_starter_kit)
