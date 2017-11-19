@@ -3,7 +3,7 @@ import request from 'supertest';
 import app from '../../dist/api';
 
 describe('Users Controller Test', () => {
-  it('should return list of countries', done => {
+  it.skip('should return list of countries', done => {
     request(app)
       .get('/api/countries')
       .end((err, res) => {
