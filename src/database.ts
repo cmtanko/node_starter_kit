@@ -16,7 +16,11 @@ export default class Database {
       );
     }
 
-    this._knex = Knex(cfg.development);
+    if (process.env.NODE_ENV === 'production') {
+      this._knex = Knex(cfg.production);
+    } else {
+      this._knex = Knex(cfg.development);
+    }
 
     this._bookshelf = Bookshelf(this._knex);
 
@@ -24,13 +28,10 @@ export default class Database {
   }
 
   public static getInstance(): Database {
-    console.log('asdfasdf');
-    
     return Database._instance;
   }
 
   public getKnex(): any {
-    console.log('asdfasdf');
     return this._knex;
   }
 

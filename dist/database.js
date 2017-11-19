@@ -10,16 +10,19 @@ class Database {
         if (Database._instance) {
             throw new Error('Error: Instantiation failed: Use Database.getInstance() instead of new.');
         }
-        this._knex = Knex(cfg.development);
+        if (process.env.NODE_ENV === 'production') {
+            this._knex = Knex(cfg.production);
+        }
+        else {
+            this._knex = Knex(cfg.development);
+        }
         this._bookshelf = Bookshelf(this._knex);
         Database._instance = this;
     }
     static getInstance() {
-        console.log('asdfasdf');
         return Database._instance;
     }
     getKnex() {
-        console.log('asdfasdf');
         return this._knex;
     }
     getBookshelf() {

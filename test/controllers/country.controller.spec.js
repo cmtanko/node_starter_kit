@@ -3,7 +3,7 @@ import request from 'supertest';
 import app from '../../dist/api';
 
 describe('Users Controller Test', () => {
-  it.skip('should return list of countries', done => {
+  it('should return list of countries', done => {
     request(app)
       .get('/api/countries')
       .end((err, res) => {
@@ -47,14 +47,17 @@ describe('Users Controller Test', () => {
       });
   });
 
-  it.skip('should respond with not found error if random country id is provided', done => {
-    request(app)
-      .get('/api/countries/11111')
-      .end((err, res) => {
-        expect(res.body.length).to.be.equal(0);
-        done();
-      });
-  });
+  it.skip(
+    'should respond with not found error if random country id is provided',
+    done => {
+      request(app)
+        .get('/api/countries/11111')
+        .end((err, res) => {
+          expect(res.body.length).to.be.equal(0);
+          done();
+        });
+    }
+  );
 
   it.skip('should update a country if name is provided', done => {
     let country = {
@@ -93,12 +96,15 @@ describe('Users Controller Test', () => {
       });
   });
 
-  it.skip('should respond with not found error if random country id is provided for deletion', done => {
-    request(app)
-      .delete('/api/countries/9999')
-      .end((err, res) => {
-        expect(res.statusCode).to.be.equal(204);
-        done();
-      });
-  });
+  it.skip(
+    'should respond with not found error if random country id is provided for deletion',
+    done => {
+      request(app)
+        .delete('/api/countries/9999')
+        .end((err, res) => {
+          expect(res.statusCode).to.be.equal(204);
+          done();
+        });
+    }
+  );
 });

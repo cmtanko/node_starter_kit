@@ -23,7 +23,7 @@
     "url": "git+https://github.com/cmtanko/node_starter_kit.git"
   },
   "author": "Suchan Badyakar",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@types/swagger-jsdoc": "0.0.2",
     "axios": "^0.16.2",
