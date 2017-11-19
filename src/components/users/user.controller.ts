@@ -1,4 +1,9 @@
+import * as _ from 'lodash';
 import { Router, Request, Response } from 'express';
+import * as HttpStatusCode from 'http-status-codes';
+
+import User from './user.model';
+import Address from './address.model';
 import userService from './user.service';
 
 const router = Router();
@@ -12,10 +17,25 @@ const router = Router();
  *       - Users
  */
 router.get('/', (req: Request, res: Response) => {
-  userService
-    .getUserList(req.params.id)
-    .then(data => res.json(data))
-    .catch(err => res.json(err));
+  new User().query(qb => {
+    qb.innerJoin('address', 'address.id', 'user.address_id');
+    qb.innerJoin('city', 'city.id', 'address.city_id');
+    qb.innerJoin('country', 'country.id', 'city.country_id');
+    qb.select(
+      'user.first_name',
+      'user.last_name',
+      'user.email',
+      'user.activebool',
+      'address.address',
+      'address.address2',
+      'address.district',
+      'city.city',
+      'country.country'
+    );
+    qb.then(user => {
+      res.status(HttpStatusCode.OK).send(user);
+    });
+  });
 });
 /**
  * 
@@ -33,10 +53,30 @@ router.get('/', (req: Request, res: Response) => {
  *         required: true
  */
 router.get('/:id', (req: Request, res: Response) => {
-  userService
-    .getUserList(req.params.id)
-    .then(data => res.json(data))
-    .catch(err => res.json(err));
+  let userId = req.params.id;
+
+  new User().query(qb => {
+    qb.where('user.id', '=', userId);
+    qb.innerJoin('address', 'address.id', 'user.address_id');
+    qb.innerJoin('city', 'city.id', 'address.city_id');
+    qb.innerJoin('country', 'country.id', 'city.country_id');
+    qb.select(
+      'user.first_name',
+      'user.last_name',
+      'user.email',
+      'user.activebool',
+      'address.address',
+      'address.address2',
+      'address.district',
+      'city.city',
+      'country.country'
+    );
+    qb.then(user => {
+      if (user.length === 0)
+        res.status(HttpStatusCode.NOT_FOUND).send('Not Found !');
+      res.status(HttpStatusCode.OK).send(user[0]);
+    });
+  });
 });
 
 /**
@@ -55,10 +95,10 @@ router.get('/:id', (req: Request, res: Response) => {
  *         required: true
  */
 router.delete('/:id', (req, res) => {
-  userService
-    .deleteUser(req.params.id)
-    .then(data => res.json(data))
-    .catch(err => res.json(err));
+  let userId = req.params.id;
+  new User({ id: userId }).destroy().then(user => {
+    res.status(HttpStatusCode.NO_CONTENT).send(user);
+  });
 });
 
 /**
@@ -84,10 +124,14 @@ router.delete('/:id', (req, res) => {
  */
 router.post('/', (req, res) => {
   let user = req.body;
-  userService
-    .addUser(user)
-    .then(data => res.json(data))
-    .catch(err => res.json(err));
+  let address= user.address;
+  delete user.address;
+  new Address(address).save().then(resultAddress => {
+    user.address_id= resultAddress.id;
+    new User(user).save().then(user => {
+      res.status(HttpStatusCode.CREATED).send(user);
+    });
+  });
 });
 
 /**
@@ -113,9 +157,13 @@ router.post('/', (req, res) => {
  */
 router.put('/', (req, res) => {
   let user = req.body;
-  userService
-    .addUser(user)
-    .then(data => res.json(data))
-    .catch(err => res.json(err));
+  let address= user.address;
+  delete user.address;
+  new Address(address).save().then(resultAddress => {
+    user.address_id= resultAddress.id;
+    new User(user).save().then(user => {
+      res.status(HttpStatusCode.CREATED).send(user);
+    });
+  });
 });
 export default router;

@@ -1,12 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var path = require("path");
-var swaggerJSDoc = require("swagger-jsdoc");
+const path = require("path");
+const swaggerJSDoc = require("swagger-jsdoc");
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').load();
 }
 // swagger definition
-var swaggerDefinition = {
+let swaggerDefinition = {
     info: {
         title: process.env.APP_NAME,
         version: process.env.APP_VERSION,
@@ -17,13 +17,13 @@ var swaggerDefinition = {
     test: __dirname
 };
 // options for the swagger docs
-var options = {
+let options = {
     // import swaggerDefinitions
     swaggerDefinition: swaggerDefinition,
     // path to the API docs
     apis: [path.join(__dirname, '../**/*.*'), path.join(__dirname, '../*.*')],
 };
 // initialize swagger-jsdoc
-var swaggerSpec = swaggerJSDoc(options);
+let swaggerSpec = swaggerJSDoc(options);
 exports.default = swaggerSpec;
 //# sourceMappingURL=swagger.js.map

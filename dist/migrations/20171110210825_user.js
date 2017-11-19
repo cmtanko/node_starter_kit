@@ -10,7 +10,11 @@ exports.up = function (knex) {
             .notNullable()
             .defaultTo('n/a');
         tbl
-            .date('last_update')
+            .date('created_at')
+            .notNullable()
+            .defaultTo(knex.raw('now()'));
+        tbl
+            .date('updated_at')
             .notNullable()
             .defaultTo(knex.raw('now()'));
     })
@@ -28,7 +32,11 @@ exports.up = function (knex) {
             .inTable('country')
             .onDelete('CASCADE');
         tbl
-            .date('last_update')
+            .date('created_at')
+            .notNullable()
+            .defaultTo(knex.raw('now()'));
+        tbl
+            .date('updated_at')
             .notNullable()
             .defaultTo(knex.raw('now()'));
     })
@@ -54,7 +62,11 @@ exports.up = function (knex) {
             .notNullable()
             .defaultTo(knex.raw('now()'));
         tbl
-            .date('last_update')
+            .date('created_at')
+            .notNullable()
+            .defaultTo(knex.raw('now()'));
+        tbl
+            .date('updated_at')
             .notNullable()
             .defaultTo(knex.raw('now()'));
     })
@@ -85,7 +97,11 @@ exports.up = function (knex) {
             .notNullable()
             .defaultTo(knex.raw('now()'));
         tbl
-            .date('last_update')
+            .date('created_at')
+            .notNullable()
+            .defaultTo(knex.raw('now()'));
+        tbl
+            .date('updated_at')
             .notNullable()
             .defaultTo(knex.raw('now()'));
     }));

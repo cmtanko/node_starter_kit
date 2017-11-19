@@ -1,6 +1,6 @@
 import * as Knex from 'knex';
 
-exports.up = function(knex:Knex) {
+exports.up = function(knex: Knex) {
   return (
     knex.schema
       // <country>
@@ -13,7 +13,11 @@ exports.up = function(knex:Knex) {
           .notNullable()
           .defaultTo('n/a');
         tbl
-          .date('last_update')
+          .date('created_at')
+          .notNullable()
+          .defaultTo(knex.raw('now()'));
+        tbl
+          .date('updated_at')
           .notNullable()
           .defaultTo(knex.raw('now()'));
       })
@@ -33,7 +37,11 @@ exports.up = function(knex:Knex) {
           .inTable('country')
           .onDelete('CASCADE');
         tbl
-          .date('last_update')
+          .date('created_at')
+          .notNullable()
+          .defaultTo(knex.raw('now()'));
+        tbl
+          .date('updated_at')
           .notNullable()
           .defaultTo(knex.raw('now()'));
       })
@@ -61,7 +69,11 @@ exports.up = function(knex:Knex) {
           .notNullable()
           .defaultTo(knex.raw('now()'));
         tbl
-          .date('last_update')
+          .date('created_at')
+          .notNullable()
+          .defaultTo(knex.raw('now()'));
+        tbl
+          .date('updated_at')
           .notNullable()
           .defaultTo(knex.raw('now()'));
       })
@@ -94,14 +106,18 @@ exports.up = function(knex:Knex) {
           .notNullable()
           .defaultTo(knex.raw('now()'));
         tbl
-          .date('last_update')
+          .date('created_at')
+          .notNullable()
+          .defaultTo(knex.raw('now()'));
+        tbl
+          .date('updated_at')
           .notNullable()
           .defaultTo(knex.raw('now()'));
       })
   );
 };
 
-exports.down = function(knex:Knex) {
+exports.down = function(knex: Knex) {
   return knex.schema
     .dropTableIfExists('country')
     .dropTableIfExists('city')

@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.seed = function (knex) {
-    var tblName = 'city';
-    var rows = [
+    let tblName = 'city';
+    let rows = [
         { city: 'kathmandu', country_id: 1 },
         { city: 'Bhaktapur', country_id: 1 },
         { city: 'Lalitpur', country_id: 1 },

@@ -1,6 +1,8 @@
 import { Router } from 'express';
+import * as HttpStatusCode from 'http-status-codes';
+
+import Country from './country.model';
 import countryService from './country.service';
-import * as Boom from 'boom';
 
 const router = Router();
 /**
@@ -12,10 +14,9 @@ const router = Router();
  *       - Countries
  */
 router.get('/', (req, res) => {
-  countryService
-    .getCountryList(req.params.id)
-    .then(data => res.status(200).json(data))
-    .catch(err => res.status(err.status || 500).json(err));
+  Country.fetchAll().then(country => {
+    res.status(HttpStatusCode.OK).send(country.toJSON());
+  });
 });
 
 /**
@@ -35,10 +36,17 @@ router.get('/', (req, res) => {
  */
 
 router.get('/:id', (req, res) => {
-  countryService
-    .getCountryList(req.params.id)
-    .then(data => res.status(200).json(data))
-    .catch(err => res.status(err.status || 500).json(err));
+  let countryId = req.params.id;
+  new Country()
+    .where({ id: countryId })
+    .fetch()
+    .then(country => {
+      if (!country)
+        return res
+          .status(HttpStatusCode.NOT_FOUND)
+          .send('Cannot find country with the id ' + countryId);
+      res.status(HttpStatusCode.OK).send(country.toJSON());
+    });
 });
 
 /**
@@ -57,10 +65,10 @@ router.get('/:id', (req, res) => {
  *         required: true
  */
 router.delete('/:id', (req, res) => {
-  countryService
-    .deleteCountry(req.params.id)
-    .then(data => res.status(204).json(data))
-    .catch(err => res.status(err.status).json(err));
+  let countryId = req.params.id;
+  new Country({ id: countryId }).destroy().then(country => {
+    res.status(HttpStatusCode.CREATED).send(country);
+  });
 });
 
 /**
@@ -87,13 +95,12 @@ router.delete('/:id', (req, res) => {
 router.post('/', (req, res) => {
   let country = req.body;
   if (!country.country) {
-    res.status(400).send('Country is not defined');
+    res.status(HttpStatusCode.BAD_REQUEST).send('Country is not defined');
     return;
   }
-  countryService
-    .addCountry(country)
-    .then(data => res.status(201).json(data))
-    .catch(err => res.status(err.status || 500).json(err));
+  new Country(country).save().then(country => {
+    res.status(HttpStatusCode.CREATED).send(country);
+  });
 });
 
 /**
@@ -119,10 +126,13 @@ router.post('/', (req, res) => {
  */
 router.put('/', (req, res) => {
   let country = req.body;
-  countryService
-    .addCountry(country)
-    .then(data => res.status(204).json(data))
-    .catch(err => res.status(err.status || 500).json(err));
+  if (!country.country) {
+    res.status(HttpStatusCode.BAD_REQUEST).send('Country is not defined');
+    return;
+  }
+  new Country(country).save().then(country => {
+    res.status(HttpStatusCode.OK).send(country);
+  });
 });
 
 export default router;
