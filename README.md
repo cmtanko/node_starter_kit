@@ -1,10 +1,12 @@
-# Node Starter Kit [Demo Here](https://node-starter-kit.herokuapp.com)
+# Node Starter Kit
 
 [![Code Climate](https://codeclimate.com/github/cmtanko/node_starter_kit/badges/gpa.svg)](https://codeclimate.com/github/cmtanko/node_starter_kit)
 [![Build Status](https://travis-ci.org/cmtanko/node_starter_kit.svg?branch=master)](https://travis-ci.org/cmtanko/node_starter_kit)
 [![Codecov](https://api.codeclimate.com/v1/badges/ba594bcde8c75c8f76d0/test_coverage)](https://codeclimate.com/github/cmtanko/node_starter_kit/test_coverage)
 
-There are various other node starter kit out there yet, Created this one with specific dependencies
+**Live Demo**: https://node-starter-kit.herokuapp.com
+
+Yet another startup kit for NodeJs :D , Created this one with following specific dependencies
 Features:
 > EcmaScript 2015 /ES6
 > Unit Testing Setup with Mocha/Chai
@@ -57,6 +59,29 @@ npm test
 
 ### Contribution
 
-Feel free to fork this project. Do send a pull request our way if you implement
-something the world should see.
+Feel free to fork this project.
+If something is unclear, confusing, or needs to be refactored, please let me know.
+Pull requesta are always welcomed,start by opening a issue before submitting a pull request
 
+
+### License
+
+Copyright (c) 2017 Suchan Badyakar
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
