@@ -5,17 +5,18 @@ import * as path from 'path';
 import * as helmet from 'helmet';
 import * as morgan from 'morgan';
 import * as express from 'express';
+import * as Promise from 'bluebird';
 import * as bodyParser from 'body-parser';
 
 import routes from './routes';
 import logger from './utils/logger';
-import swaggerSpec from './utils/swagger';
-import * as Promise from 'bluebird';
 global.Promise = require('bluebird');
+import swaggerSpec from './utils/swagger';
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').load();
 }
+
 const app = express();
 const APP_PORT = process.env.PORT || 3000;
 const env = process.env.NODE_ENV || 'development';

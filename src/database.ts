@@ -1,13 +1,12 @@
 import * as Knex from 'knex';
 import * as Bookshelf from 'bookshelf';
+
 import cfg = require('./knexfile');
 
 export default class Database {
   private static _instance: Database = new Database();
-
-  protected _knex: any = null;
-
-  protected _bookshelf: any = null;
+  protected _knex: Knex;
+  protected _bookshelf: Bookshelf;
 
   constructor() {
     if (Database._instance) {
@@ -23,7 +22,6 @@ export default class Database {
     }
 
     this._bookshelf = Bookshelf(this._knex);
-
     Database._instance = this;
   }
 
