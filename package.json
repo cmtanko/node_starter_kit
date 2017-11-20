@@ -15,8 +15,22 @@
     "build": "./node_modules/.bin/tsc",
     "dev": "nodemon --exec ./node_modules/.bin/ts-node -- src/api.ts",
     "test": "npm run test:coverage",
-    "test:mocha": "node_modules/mocha/bin/mocha --timeout 150000 -r babel-register test/**/**",
-    "test:coverage": "node_modules/.bin/babel-node node_modules/.bin/babel-istanbul cover node_modules/.bin/_mocha -- test/**/**"
+    "test:jest": "jest --forceExit",
+    "test:mocha":
+      "node_modules/mocha/bin/mocha --timeout 150000 -r babel-register test/**/**",
+    "test:coverage":
+      "node_modules/.bin/babel-node node_modules/.bin/babel-istanbul cover node_modules/.bin/_mocha -- test/**/**"
+  },
+  "jest": {
+    "globals": {
+      "tsConfigFile": "tsconfig.json"
+    },
+    "moduleFileExtensions": ["ts", "js"],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "./node_modules/ts-jest/preprocessor.js"
+    },
+    "testMatch": ["**/test/**/*.test.(ts|js)"],
+    "testEnvironment": "node"
   },
   "repository": {
     "type": "git",
@@ -78,6 +92,7 @@
     "@types/express-session": "^1.15.6",
     "@types/helmet": "0.0.37",
     "@types/jasmine": "^2.8.0",
+    "@types/jest": "^21.1.6",
     "@types/joi": "^13.0.0",
     "@types/knex": "0.0.64",
     "@types/lodash": "^4.14.85",
@@ -108,10 +123,12 @@
     "husky": "^0.14.3",
     "isparta": "^4.0.0",
     "istanbul": "^1.0.0-alpha.2",
+    "jest": "^21.2.1",
     "lint-staged": "^4.0.3",
     "nodemon": "^1.11.0",
     "prettier": "^1.6.1",
     "supertest": "^3.0.0",
+    "ts-jest": "^21.2.3",
     "ts-node": "^3.3.0",
     "typescript": "^2.6.1",
     "typings": "^2.1.1"

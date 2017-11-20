@@ -67,9 +67,17 @@ router.get('/:id', (req, res) => {
  */
 router.delete('/:id', (req, res) => {
   let countryId = req.params.id;
-  new Country({ id: countryId }).destroy().then(country => {
-    res.status(HttpStatusCode.CREATED).send(country);
-  });
+  new Country()
+    .where('id', countryId)
+    .fetch()
+    .then(c => {
+      c.destroy().then(country => {
+        res.status(HttpStatusCode.CREATED).send(country);
+      });
+    })
+    .catch(e =>{
+      res.status(HttpStatusCode.NOT_FOUND).send('Not Found!');
+    })
 });
 
 /**
@@ -103,7 +111,7 @@ router.post('/', validate(validation.country), (req, res) => {
 /**
  * 
  * @swagger
- * /countries:
+ * /countries/{country_id}:
  *   put:
  *     summary: Update country
  *     tags:
@@ -111,21 +119,35 @@ router.post('/', validate(validation.country), (req, res) => {
  *     consumes:
  *       - application/json
  *     parameters:
+ *       - name: country_id
+ *         description: 'get by country_id id'
+ *         in: path
+ *         type: integer
+ *         required: true
  *       - in : body
  *         name: country
  *         description: 'Update country'
  *         required: true
  *         schema:
- *           $ref: '#/definitions/CountryPut'
+ *           $ref: '#/definitions/Country'
  *     responses:
  *       201:
  *         description: Created
  */
-router.put('/', validate(validation.country), (req, res) => {
+router.put('/:id', validate(validation.country), (req, res) => {
+  let countryId = req.params.id;
   let country = req.body;
-  new Country(country).save().then(country => {
-    res.status(HttpStatusCode.OK).send(country);
-  });
+  new Country()
+    .where('id', countryId)
+    .fetch()
+    .then(c => {
+      c.save(country).then(newCountry => {
+        res.status(HttpStatusCode.OK).send(newCountry);
+      });
+    })
+    .catch(e =>{
+      res.status(HttpStatusCode.NOT_FOUND).send('Not Found!');
+    })
 });
 
 export default router;

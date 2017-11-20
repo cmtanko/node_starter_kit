@@ -83,9 +83,17 @@ router.get('/:id', (req, res) => {
  */
 router.delete('/:id', (req, res) => {
   let cityId = req.params.id;
-  new City({ id: cityId }).destroy().then(city => {
-    res.status(HttpStatusCode.NO_CONTENT).send(city);
-  });
+  new City()
+    .where('id', cityId)
+    .fetch()
+    .then(c => {
+      c.destroy().then(city => {
+        res.status(HttpStatusCode.NO_CONTENT).send(city);
+      });
+    })
+    .catch(e =>{
+      res.status(HttpStatusCode.NOT_FOUND).send('Not Found!');
+    })
 });
 
 /**
@@ -136,20 +144,24 @@ router.post('/', validate(validation.city),(req, res) => {
  *         description: 'Update city'
  *         required: true
  *         schema:
- *           $ref: '#/definitions/CityPut'
+ *           $ref: '#/definitions/City'
  *     responses:
  *       201:
  *         description: Created
  */
-router.put('/', validate(validation.city), (req, res) => {
+router.put('/:id', validate(validation.city), (req, res) => {
+  let cityId = req.params.id;
   let city = req.body;
-  if (!city.city) {
-    res.status(HttpStatusCode.BAD_REQUEST).send('Country is not defined');
-    return;
-  }
-  new City(city).save().then(city => {
-    res.status(HttpStatusCode.OK).send(city);
-  });
+  new City()
+    .where('id', cityId)
+    .fetch()
+    .then(c => {
+      c.save(city).then(newCity => {
+        res.status(HttpStatusCode.OK).send(newCity);
+      });
+    })
+    .catch(e =>{
+      res.status(HttpStatusCode.NOT_FOUND).send('Not Found!');
+    })
 });
-
 export default router;

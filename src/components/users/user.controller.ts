@@ -98,9 +98,17 @@ router.get('/:id', (req: Request, res: Response) => {
  */
 router.delete('/:id', (req, res) => {
   let userId = req.params.id;
-  new User({ id: userId }).destroy().then(user => {
-    res.status(HttpStatusCode.NO_CONTENT).send(user);
-  });
+  new User()
+    .where('id', userId)
+    .fetch()
+    .then(c => {
+      c.destroy().then(user => {
+        res.status(HttpStatusCode.NO_CONTENT).send(user);
+      });
+    })
+    .catch(e =>{
+      res.status(HttpStatusCode.NOT_FOUND).send('Not Found!');
+    })
 });
 
 /**
@@ -152,20 +160,26 @@ router.post('/', validate(validation.user), (req, res) => {
  *         description: 'Update use'
  *         required: true
  *         schema:
- *           $ref: '#/definitions/UserPut'
+ *           $ref: '#/definitions/User'
  *     responses:
  *       201:
  *         description: Created
  */
-router.put('/', (req, res) => {
+router.put('/:id', validate(validation.user), (req, res) => {
+  let userId = req.params.id;
   let user = req.body;
   let address= user.address;
   delete user.address;
-  new Address(address).save().then(resultAddress => {
-    user.address_id= resultAddress.id;
-    new User(user).save().then(user => {
-      res.status(HttpStatusCode.CREATED).send(user);
-    });
-  });
+  new User()
+    .where('id', userId)
+    .fetch()
+    .then(u => {
+      u.save(user).then(newUser => {
+        res.status(HttpStatusCode.OK).send(newUser);
+      });
+    })
+    .catch(e =>{
+      res.status(HttpStatusCode.NOT_FOUND).send('Not Found!');
+    })
 });
 export default router;
