@@ -6,7 +6,7 @@ import User from './user.model';
 import Address from './address.model';
 import userService from './user.service';
 let validate = require('express-validation');
-let validation = require('../_validation');
+let validation = require('../../_validation');
 
 const router = Router();
 /**

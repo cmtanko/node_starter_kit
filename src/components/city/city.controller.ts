@@ -6,7 +6,7 @@ import City from './city.model';
 import cityService from './city.service';
 
 let validate = require('express-validation');
-let validation = require('../_validation');
+let validation = require('../../_validation');
 
 const router = Router();
 

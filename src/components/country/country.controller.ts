@@ -3,7 +3,7 @@ import * as HttpStatusCode from 'http-status-codes';
 import Country from './country.model';
 import countryService from './country.service';
 let validate = require('express-validation');
-let validation = require('../_validation');
+let validation = require('../../_validation');
 
 const router = Router();
 /**
