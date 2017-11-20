@@ -7,3 +7,4 @@ after_script:
   - npm run codecov
 env:
   - HOST = "https://node-starter-kit.herokuapp.com"
+  - NODE_ENV = "production"
