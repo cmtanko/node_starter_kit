@@ -1,7 +1,12 @@
 import {} from 'jest';
 import * as supertest from 'supertest';
+const env = process.env.NODE_ENV || 'development';
 
-const request = supertest('http://localhost:3000');
+let url = 'http://localhost:3000';
+if (env === 'production') {
+  url = process.env.APP_HOST;
+}
+const request = supertest(url);
 
 describe('Country Controller Test', () => {
   describe('GET /api/countries', () => {
