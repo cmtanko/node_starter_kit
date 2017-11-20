@@ -1,12 +1,7 @@
 import {} from 'jest';
 import * as supertest from 'supertest';
-const env = process.env.NODE_ENV || 'development';
-
-let url = 'https://node-starter-kit.herokuapp.com';
-if (env == 'test') {
-  url = 'http://localhost:3000';
-}
-const request = supertest(url);
+let urlConfig = require('../config');
+const request = supertest(urlConfig.url);
 
 describe('City Controller Test', () => {
   describe('GET /api/cities', () => {

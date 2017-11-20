@@ -15,7 +15,7 @@
     "build": "./node_modules/.bin/tsc",
     "dev": "nodemon --exec ./node_modules/.bin/ts-node -- src/api.ts",
     "test": "npm run test:coverage",
-    "test:jest": "jest --forceExit",
+    "test:jest": "jest --forceExit NO",
     "test:coverage":"jest --coverage"
   },
   "jest": {
