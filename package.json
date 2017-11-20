@@ -21,6 +21,7 @@
   },
   "jest": {
     "mapCoverage": true,
+    "collectCoverageFrom" : ["**/*.{ts}"],
     "globals": {
       "target":"es6",
       "tsConfigFile": "tsconfig.json"
