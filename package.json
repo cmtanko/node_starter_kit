@@ -16,11 +16,9 @@
     "dev": "nodemon --exec ./node_modules/.bin/ts-node -- src/api.ts",
     "test": "npm run test:coverage",
     "test:jest": "jest --forceExit NO",
-    "test:coverage": "jest --coverage",
-    "test1": "jest --coverage --no-cache"
+    "test:coverage": "jest --coverage"
   },
   "jest": {
-    "mapCoverage": true,
     "collectCoverageFrom" : ["**/*.{ts}"],
     "globals": {
       "target":"es6",
