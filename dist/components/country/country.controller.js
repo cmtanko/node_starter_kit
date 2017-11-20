@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const HttpStatusCode = require("http-status-codes");
 const country_model_1 = require("./country.model");
+let validate = require('express-validation');
+let validation = require('../../_validation');
 const router = express_1.Router();
 /**
  * @swagger
@@ -62,8 +64,16 @@ router.get('/:id', (req, res) => {
  */
 router.delete('/:id', (req, res) => {
     let countryId = req.params.id;
-    new country_model_1.default({ id: countryId }).destroy().then(country => {
-        res.status(HttpStatusCode.CREATED).send(country);
+    new country_model_1.default()
+        .where('id', countryId)
+        .fetch()
+        .then(c => {
+        c.destroy().then(country => {
+            res.status(HttpStatusCode.CREATED).send(country);
+        });
+    })
+        .catch(e => {
+        res.status(HttpStatusCode.NOT_FOUND).send('Not Found!');
     });
 });
 /**
@@ -87,12 +97,8 @@ router.delete('/:id', (req, res) => {
  *       201:
  *         description: Created
  */
-router.post('/', (req, res) => {
+router.post('/', validate(validation.country), (req, res) => {
     let country = req.body;
-    if (!country.country) {
-        res.status(HttpStatusCode.BAD_REQUEST).send('Country is not defined');
-        return;
-    }
     new country_model_1.default(country).save().then(country => {
         res.status(HttpStatusCode.CREATED).send(country);
     });
@@ -100,7 +106,7 @@ router.post('/', (req, res) => {
 /**
  *
  * @swagger
- * /countries:
+ * /countries/{country_id}:
  *   put:
  *     summary: Update country
  *     tags:
@@ -108,24 +114,34 @@ router.post('/', (req, res) => {
  *     consumes:
  *       - application/json
  *     parameters:
+ *       - name: country_id
+ *         description: 'get by country_id id'
+ *         in: path
+ *         type: integer
+ *         required: true
  *       - in : body
  *         name: country
  *         description: 'Update country'
  *         required: true
  *         schema:
- *           $ref: '#/definitions/CountryPut'
+ *           $ref: '#/definitions/Country'
  *     responses:
  *       201:
  *         description: Created
  */
-router.put('/', (req, res) => {
+router.put('/:id', validate(validation.country), (req, res) => {
+    let countryId = req.params.id;
     let country = req.body;
-    if (!country.country) {
-        res.status(HttpStatusCode.BAD_REQUEST).send('Country is not defined');
-        return;
-    }
-    new country_model_1.default(country).save().then(country => {
-        res.status(HttpStatusCode.OK).send(country);
+    new country_model_1.default()
+        .where('id', countryId)
+        .fetch()
+        .then(c => {
+        c.save(country).then(newCountry => {
+            res.status(HttpStatusCode.OK).send(newCountry);
+        });
+    })
+        .catch(e => {
+        res.status(HttpStatusCode.NOT_FOUND).send('Not Found!');
     });
 });
 exports.default = router;

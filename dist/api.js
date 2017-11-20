@@ -1,38 +1,58 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Module dependencies
+ */
 require("babel-polyfill");
 const cors = require("cors");
 const path = require("path");
+const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const express = require("express");
 const bodyParser = require("body-parser");
+const compression = require("compression");
+const errorHandler = require("errorhandler");
+const cookieParser = require("cookie-parser");
+const expressValidator = require("express-validator");
+/**
+ * Local file imports
+ */
 const routes_1 = require("./routes");
 const logger_1 = require("./utils/logger");
 const swagger_1 = require("./utils/swagger");
 global.Promise = require('bluebird');
-if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').load();
-}
-const app = express();
-const APP_PORT = process.env.PORT || 3000;
+dotenv.config({ path: '.env' });
+/**
+ * Express configuration
+ */
 const env = process.env.NODE_ENV || 'development';
-const APP_HOST = process.env.APP_HOST || 'localhost';
-app.set('port', APP_PORT);
-app.set('host', APP_HOST);
-app.locals.title = process.env.APP_NAME;
-app.locals.version = process.env.APP_VERSION;
+const app = express();
+app.set('port', process.env.PORT || 3000);
+app.set('host', process.env.APP_HOST || 'localhost');
 app.use(cors());
 app.use(helmet());
 app.use(morgan('dev'));
+app.use(compression());
+app.use(cookieParser());
 app.use(bodyParser.json());
+app.use(expressValidator());
 app.use(express.static(path.join(__dirname, '/../public')));
+app.use(errorHandler());
+/**
+ * Primary app routes
+ */
 app.use('/api', routes_1.default);
-// serve swagger
+/**
+ * Swagger Route
+ */
 app.get('/swagger.json', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     res.send(swagger_1.default);
 });
+/**
+ * Basic Homepage view
+ */
 app.get('/', (req, res) => {
     res.send('<div style="margin:50px;" ><h1>Created with Node Starter kit(' +
         process.env.APP_VERSION +
@@ -44,8 +64,11 @@ app.get('/', (req, res) => {
         '<br><a href="' +
         '/api-docs" target="_blank"> Documentation </a></div>');
 });
-app.listen(APP_PORT, () => {
-    logger_1.default.log('info', `Server started at ${app.get('host')}:${app.get('port')}`);
+/**
+ * Start Express Server
+ */
+app.listen(app.get('port'), () => {
+    logger_1.default.log('info', `Server started at ${app.get('host')}:${app.get('port')}(${app.get('env')})`);
 });
 exports.default = app;
 //# sourceMappingURL=api.js.map

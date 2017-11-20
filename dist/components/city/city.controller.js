@@ -4,6 +4,8 @@ const _ = require("lodash");
 const express_1 = require("express");
 const HttpStatusCode = require("http-status-codes");
 const city_model_1 = require("./city.model");
+let validate = require('express-validation');
+let validation = require('../../_validation');
 const router = express_1.Router();
 /**
  * @swagger
@@ -73,8 +75,16 @@ router.get('/:id', (req, res) => {
  */
 router.delete('/:id', (req, res) => {
     let cityId = req.params.id;
-    new city_model_1.default({ id: cityId }).destroy().then(city => {
-        res.status(HttpStatusCode.NO_CONTENT).send(city);
+    new city_model_1.default()
+        .where('id', cityId)
+        .fetch()
+        .then(c => {
+        c.destroy().then(city => {
+            res.status(HttpStatusCode.NO_CONTENT).send(city);
+        });
+    })
+        .catch(e => {
+        res.status(HttpStatusCode.NOT_FOUND).send('Not Found!');
     });
 });
 /**
@@ -98,7 +108,7 @@ router.delete('/:id', (req, res) => {
  *       201:
  *         description: Created
  */
-router.post('/', (req, res) => {
+router.post('/', validate(validation.city), (req, res) => {
     let city = req.body;
     if (!city.city) {
         res.status(HttpStatusCode.BAD_REQUEST).send('city is not defined');
@@ -124,19 +134,24 @@ router.post('/', (req, res) => {
  *         description: 'Update city'
  *         required: true
  *         schema:
- *           $ref: '#/definitions/CityPut'
+ *           $ref: '#/definitions/City'
  *     responses:
  *       201:
  *         description: Created
  */
-router.put('/', (req, res) => {
+router.put('/:id', validate(validation.city), (req, res) => {
+    let cityId = req.params.id;
     let city = req.body;
-    if (!city.city) {
-        res.status(HttpStatusCode.BAD_REQUEST).send('Country is not defined');
-        return;
-    }
-    new city_model_1.default(city).save().then(city => {
-        res.status(HttpStatusCode.OK).send(city);
+    new city_model_1.default()
+        .where('id', cityId)
+        .fetch()
+        .then(c => {
+        c.save(city).then(newCity => {
+            res.status(HttpStatusCode.OK).send(newCity);
+        });
+    })
+        .catch(e => {
+        res.status(HttpStatusCode.NOT_FOUND).send('Not Found!');
     });
 });
 exports.default = router;

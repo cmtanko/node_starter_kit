@@ -5,8 +5,6 @@ const Bookshelf = require("bookshelf");
 const cfg = require("./knexfile");
 class Database {
     constructor() {
-        this._knex = null;
-        this._bookshelf = null;
         if (Database._instance) {
             throw new Error('Error: Instantiation failed: Use Database.getInstance() instead of new.');
         }
