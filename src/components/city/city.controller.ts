@@ -5,6 +5,9 @@ import * as HttpStatusCode from 'http-status-codes';
 import City from './city.model';
 import cityService from './city.service';
 
+let validate = require('express-validation');
+let validation = require('../_validation');
+
 const router = Router();
 
 /**
@@ -106,7 +109,7 @@ router.delete('/:id', (req, res) => {
  *       201:
  *         description: Created
  */
-router.post('/', (req, res) => {
+router.post('/', validate(validation.city),(req, res) => {
   let city = req.body;
   if (!city.city) {
     res.status(HttpStatusCode.BAD_REQUEST).send('city is not defined');
@@ -138,7 +141,7 @@ router.post('/', (req, res) => {
  *       201:
  *         description: Created
  */
-router.put('/', (req, res) => {
+router.put('/', validate(validation.city), (req, res) => {
   let city = req.body;
   if (!city.city) {
     res.status(HttpStatusCode.BAD_REQUEST).send('Country is not defined');

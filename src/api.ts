@@ -2,38 +2,40 @@ import 'babel-polyfill';
 
 import * as cors from 'cors';
 import * as path from 'path';
+import * as dotenv from 'dotenv';
 import * as helmet from 'helmet';
 import * as morgan from 'morgan';
 import * as express from 'express';
 import * as Promise from 'bluebird';
 import * as bodyParser from 'body-parser';
+import * as compression from 'compression';
+import * as errorHandler from 'errorhandler';
+import * as cookieParser from 'cookie-parser';
+import expressValidator = require('express-validator');
 
 import routes from './routes';
 import logger from './utils/logger';
-global.Promise = require('bluebird');
 import swaggerSpec from './utils/swagger';
 
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').load();
-}
+global.Promise = require('bluebird');
+
+dotenv.config({ path: '.env' });
+
+const env = process.env.NODE_ENV || 'development';
 
 const app = express();
-const APP_PORT = process.env.PORT || 3000;
-const env = process.env.NODE_ENV || 'development';
-const APP_HOST = process.env.APP_HOST || 'localhost';
-
-app.set('port', APP_PORT);
-app.set('host', APP_HOST);
-
-app.locals.title = process.env.APP_NAME;
-app.locals.version = process.env.APP_VERSION;
+app.set('port', process.env.PORT || 3000);
+app.set('host', process.env.APP_HOST || 'localhost');
 
 app.use(cors());
 app.use(helmet());
 app.use(morgan('dev'));
+app.use(compression());
+app.use(cookieParser());
 app.use(bodyParser.json());
+app.use(expressValidator());
 app.use(express.static(path.join(__dirname, '/../public')));
-
+app.use(errorHandler());
 app.use('/api', routes);
 
 // serve swagger
@@ -56,8 +58,11 @@ app.get('/', (req, res) => {
   );
 });
 
-app.listen(APP_PORT, () => {
-  logger.log('info', `Server started at ${app.get('host')}:${app.get('port')}`);
+app.listen(app.get('port'), () => {
+  logger.log(
+    'info',
+    `Server started at ${app.get('host')}:${app.get('port')}(${app.get('env')})`
+  );
 });
 
-export default app
+export default app;

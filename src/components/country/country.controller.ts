@@ -1,8 +1,9 @@
 import { Router } from 'express';
 import * as HttpStatusCode from 'http-status-codes';
-
 import Country from './country.model';
 import countryService from './country.service';
+let validate = require('express-validation');
+let validation = require('../_validation');
 
 const router = Router();
 /**
@@ -92,12 +93,8 @@ router.delete('/:id', (req, res) => {
  *       201:
  *         description: Created
  */
-router.post('/', (req, res) => {
+router.post('/', validate(validation.country), (req, res) => {
   let country = req.body;
-  if (!country.country) {
-    res.status(HttpStatusCode.BAD_REQUEST).send('Country is not defined');
-    return;
-  }
   new Country(country).save().then(country => {
     res.status(HttpStatusCode.CREATED).send(country);
   });
@@ -124,12 +121,8 @@ router.post('/', (req, res) => {
  *       201:
  *         description: Created
  */
-router.put('/', (req, res) => {
+router.put('/', validate(validation.country), (req, res) => {
   let country = req.body;
-  if (!country.country) {
-    res.status(HttpStatusCode.BAD_REQUEST).send('Country is not defined');
-    return;
-  }
   new Country(country).save().then(country => {
     res.status(HttpStatusCode.OK).send(country);
   });
