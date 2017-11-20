@@ -3,9 +3,9 @@ import * as supertest from 'supertest';
 
 const env = process.env.NODE_ENV || 'development';
 
-let url = 'http://localhost:3000';
-if (env === 'production') {
-  url = process.env.APP_HOST;
+let url = 'https://node-starter-kit.herokuapp.com';
+if (env == 'test') {
+  url = 'http://localhost:3000';
 }
 const request = supertest(url);
 
