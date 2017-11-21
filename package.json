@@ -2,7 +2,7 @@
   "name": "node_starter_kit",
   "version": "1.0.0",
   "description": "Backend API with node , starter kit",
-  "main": "dist/api.js",
+  "main": "dist/server.js",
   "scripts": {
     "migrate": "knex migrate:latest --knexfile=dist/knexfile.js",
     "seed": "knex seed:run --knexfile=dist/knexfile.js",
@@ -12,7 +12,7 @@
     "lint": "eslint src && npm run test",
     "precommit": "npm run lint --silent",
     "build": "./node_modules/.bin/tsc",
-    "dev": "nodemon --exec ./node_modules/.bin/ts-node -- src/api.ts",
+    "dev": "nodemon --exec ./node_modules/.bin/ts-node -- src/server.ts",
     "test": "npm run test:jest",
     "test:jest": "jest --config jest-config.json --bail",
     "test:coverage": "jest --config jest-config.json --coverage --bail"
