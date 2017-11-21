@@ -10,31 +10,12 @@
     "start": "pm2 start dist/api.js -i max --attach",
     "stop": "pm2 stop api",
     "lint": "eslint src && npm run test",
-    "codecov": "cat coverage/lcov.info | codecov",
     "precommit": "npm run lint --silent",
     "build": "./node_modules/.bin/tsc",
     "dev": "nodemon --exec ./node_modules/.bin/ts-node -- src/api.ts",
     "test": "npm run test:coverage",
-    "test:jest": "jest --forceExit NO",
-    "test:coverage": "jest --coverage"
-  },
-  "jest": {
-    "collectCoverageFrom" : ["**/*.{ts}"],
-    "globals": {
-      "target":"es6",
-      "tsConfigFile": "tsconfig.json"
-    },
-    "moduleFileExtensions": [
-      "ts",
-      "js"
-    ],
-    "transform": {
-      "^.+\\.(ts|tsx)$": "./node_modules/ts-jest/preprocessor.js"
-    },
-    "testMatch": [
-      "**/test/**/*.test.(ts|js)"
-    ],
-    "testEnvironment": "node"
+    "test:jest": "jest --config jest-config.json --bail",
+    "test:coverage": "jest --config jest-config.json --coverage --bail"
   },
   "repository": {
     "type": "git",
