@@ -43,7 +43,7 @@ app.use(bodyParser.json());
 app.use(expressValidator());
 app.use(express.static(path.join(__dirname, '/../public')));
 app.use(errorHandler());
-let abc = 12;
+
 /**
  * Primary app routes
  */

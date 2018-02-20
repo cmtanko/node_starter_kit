@@ -14,12 +14,12 @@ const bodyParser = require("body-parser");
 const compression = require("compression");
 const errorHandler = require("errorhandler");
 const cookieParser = require("cookie-parser");
+const cradle = require("cradle");
 const expressValidator = require("express-validator");
 /**
  * Local file imports
  */
 const routes_1 = require("./routes");
-const logger_1 = require("./utils/logger");
 const swagger_1 = require("./utils/swagger");
 global.Promise = require('bluebird');
 dotenv.config({ path: '.env' });
@@ -53,22 +53,20 @@ app.get('/swagger.json', (req, res) => {
 /**
  * Basic Homepage view
  */
+var db = new (cradle.Connection)().database('customer');
 app.get('/', (req, res) => {
-    res.send('<div style="margin:50px;" ><h1>Created with Node Starter kit(' +
-        process.env.APP_VERSION +
-        ' | ' +
-        env +
-        ')</h1><br>' +
-        '<p>There are various other node starter kit out there yet,<br> Created this one with specific dependencies Features:<p>' +
-        '<ul><li>EcmaScript 2015 /ES6</li><li>Typescript</li><li>Postgres</li><li>Knex with Bookshelf</li> <li>Unit Testing Setup with Mocha/Chai</li> <li>Commit checking with Husky and Linting with ESLint</li> <li>Logger</li> <li>Swagger</li> <li>Process Management with PM2</li></ul>' +
-        '<br><a href="' +
-        '/api-docs" target="_blank"> Documentation </a></div>');
-});
-/**
- * Start Express Server
- */
-app.listen(app.get('port'), () => {
-    logger_1.default.log('info', `Server started at ${app.get('host')}:${app.get('port')}(${app.get('env')})`);
+    db.get('', (doc) => {
+        debugger;
+        res.send('<div style="margin:50px;" ><h1>Created with Node Starter kit(' +
+            process.env.APP_VERSION +
+            ' | ' +
+            env +
+            ')</h1><br>' +
+            '<p>There are various other node starter kit out there yet,<br> Created this one with specific dependencies Features:<p>' +
+            '<ul><li>EcmaScript 2015 /ES6</li><li>Typescript</li><li>Postgres</li><li>Knex with Bookshelf</li> <li>Unit Testing Setup with Mocha/Chai</li> <li>Commit checking with Husky and Linting with ESLint</li> <li>Logger</li> <li>Swagger</li> <li>Process Management with PM2</li></ul>' +
+            '<br><a href="' +
+            '/api-docs" target="_blank"> Documentation </a></div>');
+    });
 });
 exports.default = app;
 //# sourceMappingURL=api.js.map
