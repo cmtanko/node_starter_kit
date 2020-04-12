@@ -6,6 +6,8 @@
 
 **Live Demo**: https://node-starter-kit.herokuapp.com
 
+**Live Demo AWS**: http://node-starter-kit2-dev.us-east-1.elasticbeanstalk.com
+
 Yet another startup kit for NodeJs :D , Created this one with following specific dependencies
 Features:
 > EcmaScript 2015 /ES6
