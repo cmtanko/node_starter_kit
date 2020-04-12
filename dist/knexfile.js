@@ -5,9 +5,9 @@ if (process.env.NODE_ENV !== 'production') {
 }
 module.exports = {
     development: {
-        client: 'postgresql',
+        client: 'postgres',
         connection: {
-            host: 'newusers.c1sms85arqid.us-east-1.rds.amazonaws.com',
+            host: 'database-1.c1sms85arqid.us-east-1.rds.amazonaws.com',
             user: 'postgres',
             database: 'newusers',
             password: 'postgres',
@@ -28,7 +28,7 @@ module.exports = {
     production: {
         client: 'postgres',
         connection: {
-            host: 'newusers.c1sms85arqid.us-east-1.rds.amazonaws.com',
+            host: 'database-1.c1sms85arqid.us-east-1.rds.amazonaws.com',
             user: 'postgres',
             database: 'newusers',
             password: 'postgres',
