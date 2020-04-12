@@ -13,7 +13,7 @@ let swaggerDefinition = {
         description: process.env.APP_DESCRIPTION,
     },
     host: process.env.SWAGGER_HOST,
-    basePath: process.env.BASE_PATH,
+    basePath: "/api",
     test: __dirname
 };
 // options for the swagger docs
