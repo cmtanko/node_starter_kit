@@ -5,11 +5,11 @@ if (process.env.NODE_ENV !== 'production') {
 
 export = {
   development: {
-    client: 'pg',
+    client: 'postgresql',
     connection: {
-      host: 'localhost',
+      host: 'newusers.c1sms85arqid.us-east-1.rds.amazonaws.com',
       user: 'postgres',
-      database: 'newUsers',
+      database: 'newusers',
       password: 'postgres',
     },
     debug: false,
@@ -27,17 +27,16 @@ export = {
   },
 
   production: {
-    client: 'postgresql',
+    client: 'postgres',
     connection: {
-      host: process.env.DB_HOST,
-      user: process.env.DB_USER,
-      database: process.env.DB_NAME,
-      password: process.env.DB_PASSWORD,
+      host: 'newusers.c1sms85arqid.us-east-1.rds.amazonaws.com',
+      user: 'postgres',
+      database: 'newusers',
+      password: 'postgres',
     },
     pool: {
       min: 2,
-      max: 50,
-      acquireTimeout: 60 * 1000,
+      max: 10
     },
     migrations: {
       tableName: 'knex_migrations',
@@ -47,3 +46,4 @@ export = {
     },
   },
 };
+
