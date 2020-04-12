@@ -9,10 +9,10 @@ module.exports = {
         connection: {
             host: 'localhost',
             user: 'postgres',
-            database: 'newUsers',
+            database: 'newusers',
             password: 'postgres',
         },
-        debug: false,
+        debug: true,
         pool: {
             min: 0,
             max: 10,
@@ -26,7 +26,7 @@ module.exports = {
         },
     },
     production: {
-        client: 'postgresql',
+        client: 'postgres',
         connection: {
             host: process.env.DB_HOST,
             user: process.env.DB_USER,
@@ -35,8 +35,7 @@ module.exports = {
         },
         pool: {
             min: 2,
-            max: 50,
-            acquireTimeout: 60 * 1000,
+            max: 50
         },
         migrations: {
             tableName: 'knex_migrations',

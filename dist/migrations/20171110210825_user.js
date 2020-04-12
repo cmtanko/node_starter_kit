@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.up = function (knex) {
     return (knex.schema
+        // <country>
         .createTable('country', function (tbl) {
         // PK
         tbl.increments('id');
@@ -18,6 +19,7 @@ exports.up = function (knex) {
             .notNullable()
             .defaultTo(knex.raw('now()'));
     })
+        // <city>
         .createTable('city', function (tbl) {
         // PK
         tbl.increments('id');
@@ -40,6 +42,7 @@ exports.up = function (knex) {
             .notNullable()
             .defaultTo(knex.raw('now()'));
     })
+        // <address>
         .createTable('address', function (tbl) {
         // PK
         tbl.increments('id');
@@ -70,6 +73,7 @@ exports.up = function (knex) {
             .notNullable()
             .defaultTo(knex.raw('now()'));
     })
+        // <user>
         .createTable('user', function (tbl) {
         // PK
         tbl.increments('id');
