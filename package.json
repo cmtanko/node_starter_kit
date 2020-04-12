@@ -7,7 +7,7 @@
     "migrate": "knex migrate:latest --knexfile=dist/knexfile.js",
     "seed": "knex seed:run --knexfile=dist/knexfile.js",
     "start": "node dist/server.js",
-    "prestart": "npm run build",
+    "prestart": "./node_modules/.bin/tsc",
     "stop": "pm2 stop api",
     "lint": "eslint src && npm run test",
     "build": "./node_modules/.bin/tsc",
